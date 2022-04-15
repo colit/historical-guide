@@ -1,0 +1,80 @@
+name: historical_guide
+description: Historische Touren
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 0.0.1+1
+
+environment:
+  sdk: ">=2.15.1 <3.0.0"
+  
+dependencies:
+  flutter:
+    sdk: flutter
+
+  cupertino_icons: ^1.0.2
+  latlong2: ^0.8.1 # Apache License, Version 2.0
+  # mapbox_gl: ^0.15.0
+  # mapbox_gl:
+  #   path: ../../flutter-mapbox-gl
+  provider: ^6.0.0 # MIT
+  graphql: ^5.0.1 # MIT
+  hive: ^2.1.0 # Apache License, Version 2.0
+  # pointer_interceptor: ^0.9.3
+  pointer_interceptor:
+    path: ../../pub_dev/packages/packages/pointer_interceptor
+  # parse_server_sdk: ^3.1.0
+  url_launcher: ^6.0.2
+  flutter_svg: ^1.0.3
+  flutter_dotenv: ^5.0.2
+  http: ^0.13.4
+
+dependency_overrides:
+  mapbox_gl_platform_interface:
+    path: ../../flutter-mapbox-gl/mapbox_gl_platform_interface
+  mapbox_gl_web:
+    path: ../../flutter-mapbox-gl/mapbox_gl_web
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^1.0.0
+
+  mapbox_gl:
+    path: ../../flutter-mapbox-gl
+
+flutter:
+
+  uses-material-design: true
+
+  # To add assets to your application, add an assets section, like this:
+  assets:
+    - images/
+    - .env
+
+  # An image asset can refer to one or more resolution-specific "variants", see
+  # https://flutter.dev/assets-and-images/#resolution-aware.
+
+  # For details regarding adding assets from package dependencies, see
+  # https://flutter.dev/assets-and-images/#from-packages
+
+  # To add custom fonts to your application, add a fonts section here,
+  # in this "flutter" section. Each entry in this list should have a
+  # "family" key with the font family name, and a "fonts" key with a
+  # list giving the asset and other descriptors for the font. For
+  # example:
+  # fonts:
+  #   - family: Schyler
+  #     fonts:
+  #       - asset: fonts/Schyler-Regular.ttf
+  #       - asset: fonts/Schyler-Italic.ttf
+  #         style: italic
+  #   - family: Trajan Pro
+  #     fonts:
+  #       - asset: fonts/TrajanPro.ttf
+  #       - asset: fonts/TrajanPro_Bold.ttf
+  #         weight: 700
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
