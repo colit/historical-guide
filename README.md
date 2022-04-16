@@ -2,5 +2,7 @@
 
 Eine Web- und mobile Anwendung
 
-## Setup
+## Demo
+
+[https://pilgrim-app.de](https://pilgrim-app.de)
 
