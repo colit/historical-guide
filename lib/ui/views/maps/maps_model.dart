@@ -43,6 +43,8 @@ class MapsModel extends BaseModel {
 
   bool _mapIsReady = false;
 
+  bool isSetupVisible = false;
+
   void _updateCameraPosition(succes) {
     if (succes ?? false) {
       final target = _controller.cameraPosition?.target;
@@ -309,6 +311,9 @@ class MapsModel extends BaseModel {
   }
 
   void cleanMap() {
+    print('clean map');
+    isSetupVisible = false;
+    notifyListeners();
     _selectedTour = null;
     _removeTrack();
     for (final circle in _controller.circles) {
