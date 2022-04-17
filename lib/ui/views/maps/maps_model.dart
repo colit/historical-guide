@@ -40,6 +40,7 @@ class MapsModel extends BaseModel {
   Tour? _selectedTour;
 
   List<MapReference> get maps => _mapService.maps;
+  List<Circle> _tourIcons = [];
 
   bool _mapIsReady = false;
   bool _photosVisible = true;
@@ -58,6 +59,7 @@ class MapsModel extends BaseModel {
   }
 
   void _onMapChanged() {
+    // animate camera to neu bounds
     if (_mapService.mapBounds != null) {
       _controller
           .animateCamera(
@@ -65,6 +67,7 @@ class MapsModel extends BaseModel {
           )
           .then(_updateCameraPosition);
     }
+    // Hide / show photo icons
     if (_photosVisible != _mapService.photosVisibility) {
       _photosVisible = _mapService.photosVisibility;
       if (_photosVisible) {
@@ -73,9 +76,18 @@ class MapsModel extends BaseModel {
         _removePhotos();
       }
     }
+    // Hide / show tour icons
     if (_toursVisible != _mapService.toursVisibility) {
       _toursVisible = _mapService.toursVisibility;
+      if (_toursVisible) {
+        _tourService.getToursList().then((value) => _addTourIcons(value));
+      } else {
+        _controller.removeCircles(_tourIcons);
+        _removeTrack();
+        _selectedTour = null;
+      }
     }
+    // redraw map
     notifyListeners();
   }
 
@@ -172,19 +184,23 @@ class MapsModel extends BaseModel {
   }
 
   void _addTourIcons(List<Tour> tours) {
-    _controller.addCircles(
-      tours.map((tour) {
-        return CircleOptions(
-          geometry: LatLng(
-            tour.startPoint.latitude,
-            tour.startPoint.longitude,
-          ),
-          circleRadius: 16,
-          circleColor: '#e200ff',
-        );
-      }).toList(),
-      tours.map((tour) => tour.toMap()).toList(),
-    );
+    if (!_toursVisible) return;
+    final circleOptions = tours.map((tour) {
+      return CircleOptions(
+        geometry: LatLng(
+          tour.startPoint.latitude,
+          tour.startPoint.longitude,
+        ),
+        circleRadius: 16,
+        circleColor: '#e200ff',
+      );
+    }).toList();
+    _controller
+        .addCircles(
+          circleOptions,
+          tours.map((tour) => tour.toMap()).toList(),
+        )
+        .then((circles) => _tourIcons = circles);
   }
 
   void _getFotos(LatLngBounds bounds) {
