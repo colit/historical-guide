@@ -1,10 +1,30 @@
 import 'package:flutter/material.dart';
 import 'package:historical_guide/ui/ui_helpers.dart';
+import 'package:historical_guide/ui/views/maps/map_config/map_selector/map_selector_widget.dart';
 
-import 'setup_content_widget.dart';
-import 'setup_menu_button.dart';
+import 'config_content_widget.dart';
+import 'config_menu_button.dart';
 
 class MapSetupView extends StatefulWidget {
+  static final content = [
+    ConfigItem(
+      label: 'Historische Karten',
+      child: const MapSelectorWidget(),
+    ),
+    ConfigItem(
+      label: 'Bilder',
+      child: Container(
+        color: Colors.greenAccent,
+      ),
+    ),
+    ConfigItem(
+      label: 'Touren',
+      child: Container(
+        color: Colors.blueAccent,
+      ),
+    ),
+  ];
+
   const MapSetupView({
     Key? key,
     this.width,
@@ -29,7 +49,7 @@ class _MapSetupViewState extends State<MapSetupView>
 
   late final Animation<Offset> _offsetAnimation = Tween<Offset>(
     begin: Offset.zero,
-    end: const Offset(0, -0.8),
+    end: const Offset(0, -0.75),
   ).animate(CurvedAnimation(
     parent: _controller,
     curve: Curves.easeInOut,
@@ -71,7 +91,6 @@ class _MapSetupViewState extends State<MapSetupView>
 
   @override
   void didUpdateWidget(covariant MapSetupView oldWidget) {
-    print('didUpdateWidget');
     if (!widget.visible) {
       _onClose();
     }
@@ -109,10 +128,14 @@ class _MapSetupViewState extends State<MapSetupView>
                   ),
                 ],
               ),
-              SetupContentWidget(
+              ConfigContentWidget(
                 width: widget.width,
                 onSizeChange: _onSetContentSize,
                 onClose: _onClose,
+                selected: currentSelected,
+                content: currentSelected == null
+                    ? null
+                    : MapSetupView.content[currentSelected!],
               ),
             ],
           ),
@@ -120,4 +143,20 @@ class _MapSetupViewState extends State<MapSetupView>
       ),
     );
   }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+}
+
+class ConfigItem {
+  final String label;
+  final Widget child;
+
+  ConfigItem({
+    required this.label,
+    required this.child,
+  });
 }

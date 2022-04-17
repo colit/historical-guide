@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:historical_guide/core/services/interfaces/i_database_repository.dart';
-import 'package:historical_guide/ui/views/maps/opacity_controller/opacity_controller.dart';
+// import 'package:latlong2/latlong.dart' as latlng;
 import 'package:mapbox_gl/mapbox_gl.dart';
 import '../models/map_referece.dart';
 
@@ -14,6 +14,7 @@ class MapService extends ChangeNotifier {
         reference100: 'cl1ntkeuh000814p61hbxkegk',
         reference50: 'cl1ntkeuh000814p61hbxkegk',
       );
+
   // MapService({required IDatabaseRepository databaseRepository})
   //     : _databaseRepository = databaseRepository;
 
@@ -23,17 +24,20 @@ class MapService extends ChangeNotifier {
 
   late IDatabaseRepository _databaseRepository;
 
-  LatLng currentPosition = const LatLng(50.941303, 6.958138);
-  double currentZoom = 16;
+  LatLngBounds? _mapBounds;
 
   List<MapReference> _maps = [];
 
-  List<MapReference> get maps => _maps;
-
   MapReference? _currentMap;
-  int _visibilityIndex = OpacityController.divisions;
+  int _visibilityIndex = 2;
+  LatLng _currentPosition = const LatLng(50.941303, 6.958138);
+  double _currentZoom = 16;
 
   MapReference get currentMap => _currentMap ?? MapService.todayMap;
+  List<MapReference> get maps => _maps;
+  LatLngBounds? get mapBounds => _mapBounds;
+  LatLng get currentPosition => _currentPosition;
+  double get currentZoom => _currentZoom;
 
   String get currentStyle {
     if (_currentMap == null) {
@@ -55,7 +59,7 @@ class MapService extends ChangeNotifier {
   void setCurrentMapWithIndex(int index) {
     _currentMap = _maps[index];
     if (_visibilityIndex == 0) {
-      _visibilityIndex = OpacityController.divisions;
+      _visibilityIndex = 2;
     }
     notifyListeners();
   }
@@ -75,5 +79,31 @@ class MapService extends ChangeNotifier {
   Future<Map<String, dynamic>> getPhotos(Map<String, String> parameters) async {
     final geoJson = await _databaseRepository.getPhotos(parameters);
     return geoJson;
+  }
+
+  void zoomOnCurrentMap() {
+    if (_currentMap != null) {
+      final boundsSW = _currentMap!.boundsSW;
+      final boundsNE = _currentMap!.boundsNE;
+      if (boundsSW != null && boundsNE != null) {
+        _mapBounds = LatLngBounds(
+          southwest: LatLng(
+            boundsSW.latitude,
+            boundsSW.longitude,
+          ),
+          northeast: LatLng(
+            boundsNE.latitude,
+            boundsNE.longitude,
+          ),
+        );
+      }
+      notifyListeners();
+    }
+  }
+
+  void updateCameraPosition(LatLng camera, double zoom) {
+    _currentPosition = camera;
+    _currentZoom = zoom;
+    _mapBounds = null;
   }
 }

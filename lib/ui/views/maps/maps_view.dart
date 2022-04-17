@@ -3,12 +3,12 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:historical_guide/core/services/map_service.dart';
 import 'package:historical_guide/ui/base/base_widget.dart';
 import 'package:historical_guide/ui/views/maps/map_selector_plus/map_selector_plus_view.dart';
-import 'package:historical_guide/ui/views/maps/map_setup/map_setup_view.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/services/tour_service.dart';
 import 'image_layer/image_layer_view.dart';
+import 'map_config/config_view.dart';
 import 'maps_model.dart';
 
 class MapsView extends StatefulWidget {
@@ -50,13 +50,13 @@ class _MapsViewState extends State<MapsView> {
                 top: 0,
                 child: BottomShadowWidget(width: width),
               ),
-              Positioned(
-                left: 0,
-                child: MapSelectorPlusView(
-                  visible: model.maps.isNotEmpty,
-                  onOpacityChanged: model.showMapWithOpacityIndex,
-                ),
-              ),
+              // Positioned(
+              //   left: 0,
+              //   child: MapSelectorPlusView(
+              //     visible: model.maps.isNotEmpty,
+              //     onOpacityChanged: model.showMapWithOpacityIndex,
+              //   ),
+              // ),
               Positioned(
                   bottom: 0,
                   child: MapSetupView(

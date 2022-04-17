@@ -29,7 +29,7 @@ class SetupMenuButton extends StatelessWidget {
           ),
         ),
         child: Material(
-          color: active ? kColorWhite : kColorPrimary,
+          color: active ? kColorBackgroundLight : kColorPrimary,
           child: InkWell(
             onTap: active ? null : () => onTap?.call(index),
             child: const SizedBox(

@@ -50,30 +50,16 @@ class MapsModel extends BaseModel {
       final target = _controller.cameraPosition?.target;
       final zoom = _controller.cameraPosition?.zoom;
       if (target != null && zoom != null) {
-        _mapService.currentPosition = target;
-        _mapService.currentZoom = zoom;
+        _mapService.updateCameraPosition(target, zoom);
       }
     }
   }
 
   void _onMapChanged() {
-    final boundsSW = _mapService.currentMap.boundsSW;
-    final boundsNE = _mapService.currentMap.boundsNE;
-    if (boundsSW != null && boundsNE != null) {
+    if (_mapService.mapBounds != null) {
       _controller
           .animateCamera(
-            CameraUpdate.newLatLngBounds(
-              LatLngBounds(
-                southwest: LatLng(
-                  boundsSW.latitude,
-                  boundsSW.longitude,
-                ),
-                northeast: LatLng(
-                  boundsNE.latitude,
-                  boundsNE.longitude,
-                ),
-              ),
-            ),
+            CameraUpdate.newLatLngBounds(_mapService.mapBounds!),
           )
           .then(_updateCameraPosition);
     }
@@ -295,8 +281,7 @@ class MapsModel extends BaseModel {
   void onCameraIdle() {
     final position = _controller.cameraPosition;
     if (position != null) {
-      _mapService.currentPosition = position.target;
-      _mapService.currentZoom = position.zoom;
+      _mapService.updateCameraPosition(position.target, position.zoom);
     }
     _controller.getVisibleRegion().then((value) => _getFotos(value));
   }
@@ -311,9 +296,7 @@ class MapsModel extends BaseModel {
   }
 
   void cleanMap() {
-    print('clean map');
     isSetupVisible = false;
-    notifyListeners();
     _selectedTour = null;
     _removeTrack();
     for (final circle in _controller.circles) {
@@ -322,6 +305,7 @@ class MapsModel extends BaseModel {
         const CircleOptions(circleColor: '#e200ff'),
       );
     }
+    notifyListeners();
   }
 
   void removeSelectedImage() {

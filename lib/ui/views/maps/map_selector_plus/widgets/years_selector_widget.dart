@@ -3,6 +3,7 @@ import 'package:historical_guide/core/models/map_referece.dart';
 import 'package:historical_guide/ui/ui_helpers.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 import '../../../../commons/theme.dart';
+import '../../map_config/year_list_item.dart';
 import '../map_selector_plus_view.dart';
 
 class YearsSelectorWidget extends StatelessWidget {
@@ -89,49 +90,6 @@ class YearsSelectorWidget extends StatelessWidget {
                   ),
                 ],
               ),
-            ),
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class YearListItem extends StatelessWidget {
-  const YearListItem({
-    Key? key,
-    required this.map,
-    required this.index,
-    this.onMapChanged,
-    this.selected = false,
-  }) : super(key: key);
-
-  final void Function(int)? onMapChanged;
-  final bool selected;
-  final MapReference map;
-  final int index;
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      clipBehavior: Clip.antiAlias,
-      decoration: const BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(6)),
-      ),
-      child: Material(
-        color: selected ? kColorBackgroundLight : kColorWhite,
-        child: InkWell(
-          onTap: () => onMapChanged?.call(index),
-          child: Padding(
-            padding: const EdgeInsets.all(UIHelper.kHorizontalSpaceSmall),
-            child: Column(
-              children: [
-                Text(map.year.toString()),
-                Text(
-                  map.name,
-                  textAlign: TextAlign.center,
-                ),
-              ],
             ),
           ),
         ),

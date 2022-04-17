@@ -135,16 +135,16 @@ class MapOpacityControllerButton extends StatelessWidget {
       verticalOffset: 10,
       message: symanticLabel,
       child: Material(
-        color: selected ? kColorPrimary : kColorBackgroundLight,
+        color: selected ? kColorPrimary : kColorWhite,
         child: InkWell(
-          onTap: onTap,
+          onTap: onTap?.call,
           child: SizedBox(
-            width: 40,
-            height: 40,
+            width: 30,
+            height: 30,
             child: Center(
               child: SvgPicture.asset(
                 iconReference,
-                width: 20,
+                width: 16,
                 color: selected ? kColorBackgroundLight : kColorPrimary,
               ),
             ),
