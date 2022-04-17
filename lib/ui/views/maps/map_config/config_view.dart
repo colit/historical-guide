@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:historical_guide/ui/ui_helpers.dart';
-import 'package:historical_guide/ui/views/maps/map_config/map_selector/map_selector_widget.dart';
+import 'package:historical_guide/ui/views/maps/map_config/map_selector/map_selector_view.dart';
+import 'package:historical_guide/ui/views/maps/map_config/photo_selector/photo_selector_view.dart';
+import 'package:historical_guide/ui/views/maps/map_config/tour_selector/tour_selector_view.dart';
 
 import 'widgets/config_content_widget.dart';
 import 'widgets/config_menu_button.dart';
@@ -13,15 +15,11 @@ class MapSetupView extends StatefulWidget {
     ),
     ConfigItem(
       label: 'Bilder',
-      child: Container(
-        color: Colors.greenAccent,
-      ),
+      child: const PhotoSelectorView(),
     ),
     ConfigItem(
       label: 'Touren',
-      child: Container(
-        color: Colors.blueAccent,
-      ),
+      child: const TourSelectorView(),
     ),
   ];
 
@@ -47,9 +45,9 @@ class _MapSetupViewState extends State<MapSetupView>
     vsync: this,
   );
 
-  late final Animation<Offset> _offsetAnimation = Tween<Offset>(
+  late Animation<Offset> _offsetAnimation = Tween<Offset>(
     begin: Offset.zero,
-    end: const Offset(0, -0.75),
+    end: const Offset(0, 0),
   ).animate(CurvedAnimation(
     parent: _controller,
     curve: Curves.easeInOut,
@@ -57,7 +55,7 @@ class _MapSetupViewState extends State<MapSetupView>
 
   late bool visible = widget.visible;
   int? currentSelected;
-  double? widgetHeight;
+  double? contentHeight;
   bool sizeDefined = false;
 
   void _onMenuTap(int index) {
@@ -76,8 +74,18 @@ class _MapSetupViewState extends State<MapSetupView>
 
   void _onSetContentSize(Size size) {
     setState(() {
-      widgetHeight = size.height;
+      contentHeight = size.height;
       sizeDefined = true;
+      if (contentHeight != null) {
+        _offsetAnimation = Tween<Offset>(
+          begin: Offset.zero,
+          end: Offset(
+              0, -contentHeight! / (contentHeight! + SetupMenuButton.height)),
+        ).animate(CurvedAnimation(
+          parent: _controller,
+          curve: Curves.easeInOut,
+        ));
+      }
     });
   }
 
@@ -100,11 +108,11 @@ class _MapSetupViewState extends State<MapSetupView>
   @override
   Widget build(BuildContext context) {
     return Opacity(
-      opacity: widgetHeight == null ? 0 : 1,
+      opacity: contentHeight == null ? 0 : 1,
       child: SlideTransition(
         position: _offsetAnimation,
         child: Transform.translate(
-          offset: Offset(0, widgetHeight ?? 0),
+          offset: Offset(0, contentHeight ?? 0),
           child: Column(
             children: [
               SizedBox(

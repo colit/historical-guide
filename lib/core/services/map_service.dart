@@ -15,6 +15,21 @@ class MapService extends ChangeNotifier {
         reference50: 'cl1ntkeuh000814p61hbxkegk',
       );
 
+  bool _photosVisibility = true;
+  bool _toursVisibility = true;
+
+  bool get photosVisibility => _photosVisibility;
+  set photosVisibility(bool visibility) {
+    _photosVisibility = visibility;
+    notifyListeners();
+  }
+
+  bool get toursVisibility => _toursVisibility;
+  set toursVisibility(bool visibility) {
+    _toursVisibility = visibility;
+    notifyListeners();
+  }
+
   // MapService({required IDatabaseRepository databaseRepository})
   //     : _databaseRepository = databaseRepository;
 

@@ -77,7 +77,7 @@ class YearListItem extends StatelessWidget {
                             onTap: () =>
                                 context.read<MapService>().zoomOnCurrentMap(),
                             iconReference: 'images/icon-zoom.svg',
-                            symanticLabel: 'Karte zoomen',
+                            symanticLabel: 'Karte reinzoomen',
                           ),
                         ),
                         Expanded(child: Container()),
