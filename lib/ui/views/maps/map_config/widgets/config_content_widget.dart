@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:historical_guide/ui/ui_helpers.dart';
-import 'package:historical_guide/ui/views/maps/map_config/opacity_controller/opacity_controller.dart';
 import 'package:pointer_interceptor/pointer_interceptor.dart';
 
-import '../../../commons/theme.dart';
-import '../../../widgets/size_detector_widget.dart';
-import 'config_view.dart';
+import '../../../../commons/theme.dart';
+import '../../../../widgets/size_detector_widget.dart';
+import '../config_view.dart';
 
 class ConfigContentWidget extends StatelessWidget {
   const ConfigContentWidget({

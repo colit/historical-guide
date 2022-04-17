@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:historical_guide/ui/base/base_widget.dart';
 import 'package:historical_guide/ui/views/maps/map_config/opacity_controller/opacity_controller_model.dart';
+import 'package:provider/provider.dart';
 
+import '../../../../../core/services/map_service.dart';
 import '../../../../commons/theme.dart';
 import '../../map_selector_plus/widgets/map_opacity_controller_widget.dart';
 
-class OpacityControllerWidget extends StatelessWidget {
-  const OpacityControllerWidget({Key? key}) : super(key: key);
+class OpacityControllerView extends StatelessWidget {
+  const OpacityControllerView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -17,7 +19,9 @@ class OpacityControllerWidget extends StatelessWidget {
       ),
       clipBehavior: Clip.antiAlias,
       child: BaseWidget<OpacityControllerModel>(
-          model: OpacityControllerModel(),
+          model: OpacityControllerModel(
+            mapService: context.read<MapService>(),
+          ),
           builder: (context, model, _) {
             return Row(
               children: [
@@ -26,7 +30,7 @@ class OpacityControllerWidget extends StatelessWidget {
                       MapOpacityControllerWidget.indexHidden,
                   onTap: () => model
                       .onOpacityChanged(MapOpacityControllerWidget.indexHidden),
-                  iconReference: 'images/icon-hidden.svg',
+                  iconReference: 'images/icon-transparent.svg',
                   symanticLabel: 'Karte verstecken',
                 ),
                 MapOpacityControllerButton(
@@ -34,7 +38,7 @@ class OpacityControllerWidget extends StatelessWidget {
                       MapOpacityControllerWidget.indexTansparent,
                   onTap: () => model.onOpacityChanged(
                       MapOpacityControllerWidget.indexTansparent),
-                  iconReference: 'images/icon-transparent.svg',
+                  iconReference: 'images/icon-semi-transparent.svg',
                   symanticLabel: 'Halbtransparent',
                 ),
                 MapOpacityControllerButton(

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:historical_guide/core/services/map_service.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/models/map_referece.dart';
-import '../../../commons/theme.dart';
-import '../../../ui_helpers.dart';
-import '../map_selector_plus/widgets/map_opacity_controller_widget.dart';
-import 'opacity_controller/opacity_controller.dart';
+import '../../../../../core/models/map_referece.dart';
+import '../../../../commons/theme.dart';
+import '../../../../ui_helpers.dart';
+import '../../map_selector_plus/widgets/map_opacity_controller_widget.dart';
+import '../opacity_controller/opacity_controller_view.dart';
 
 class YearListItem extends StatelessWidget {
   const YearListItem({
@@ -66,7 +66,7 @@ class YearListItem extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       children: [
                         Expanded(child: Container()),
-                        const OpacityControllerWidget(),
+                        const OpacityControllerView(),
                         UIHelper.horizontalSpace(4),
                         Container(
                           clipBehavior: Clip.antiAlias,
@@ -76,7 +76,7 @@ class YearListItem extends StatelessWidget {
                           child: MapOpacityControllerButton(
                             onTap: () =>
                                 context.read<MapService>().zoomOnCurrentMap(),
-                            iconReference: 'images/icon-hidden.svg',
+                            iconReference: 'images/icon-zoom.svg',
                             symanticLabel: 'Karte zoomen',
                           ),
                         ),

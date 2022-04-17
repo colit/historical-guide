@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:historical_guide/ui/views/maps/map_config/year_list_item.dart';
+import 'package:historical_guide/ui/views/maps/map_config/widgets/year_list_item.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/services/map_service.dart';

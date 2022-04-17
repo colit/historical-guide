@@ -58,9 +58,7 @@ class MapService extends ChangeNotifier {
 
   void setCurrentMapWithIndex(int index) {
     _currentMap = _maps[index];
-    if (_visibilityIndex == 0) {
-      _visibilityIndex = 2;
-    }
+    _visibilityIndex = 2;
     notifyListeners();
   }
 
@@ -74,6 +72,7 @@ class MapService extends ChangeNotifier {
 
   void setVisibilityIndex(int value) {
     _visibilityIndex = value;
+    notifyListeners();
   }
 
   Future<Map<String, dynamic>> getPhotos(Map<String, String> parameters) async {
@@ -97,6 +96,7 @@ class MapService extends ChangeNotifier {
           ),
         );
       }
+      _visibilityIndex = 2;
       notifyListeners();
     }
   }

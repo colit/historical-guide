@@ -50,13 +50,6 @@ class _MapsViewState extends State<MapsView> {
                 top: 0,
                 child: BottomShadowWidget(width: width),
               ),
-              // Positioned(
-              //   left: 0,
-              //   child: MapSelectorPlusView(
-              //     visible: model.maps.isNotEmpty,
-              //     onOpacityChanged: model.showMapWithOpacityIndex,
-              //   ),
-              // ),
               Positioned(
                   bottom: 0,
                   child: MapSetupView(

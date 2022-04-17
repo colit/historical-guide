@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:historical_guide/ui/ui_helpers.dart';
 import 'package:historical_guide/ui/views/maps/map_config/map_selector/map_selector_widget.dart';
 
-import 'config_content_widget.dart';
-import 'config_menu_button.dart';
+import 'widgets/config_content_widget.dart';
+import 'widgets/config_menu_button.dart';
 
 class MapSetupView extends StatefulWidget {
   static final content = [
@@ -107,26 +107,55 @@ class _MapSetupViewState extends State<MapSetupView>
           offset: Offset(0, widgetHeight ?? 0),
           child: Column(
             children: [
-              Row(
-                children: [
-                  SetupMenuButton(
-                    index: 0,
-                    selected: currentSelected,
-                    onTap: _onMenuTap,
-                  ),
-                  UIHelper.horizontalSpace(4),
-                  SetupMenuButton(
-                    index: 1,
-                    selected: currentSelected,
-                    onTap: _onMenuTap,
-                  ),
-                  UIHelper.horizontalSpace(4),
-                  SetupMenuButton(
-                    index: 2,
-                    selected: currentSelected,
-                    onTap: _onMenuTap,
-                  ),
-                ],
+              SizedBox(
+                width: widget.width,
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Positioned.fill(
+                      child: Container(
+                        decoration: BoxDecoration(
+                          gradient: LinearGradient(
+                            colors: [
+                              Colors.black12,
+                              Colors.black.withAlpha(0),
+                            ],
+                            begin: Alignment.bottomCenter,
+                            end: Alignment.center,
+                          ),
+                        ),
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SetupMenuButton(
+                          index: 0,
+                          iconAsset: 'images/icon-map.svg',
+                          selected: currentSelected,
+                          onTap: _onMenuTap,
+                          symanticsLabel: MapSetupView.content[0].label,
+                        ),
+                        UIHelper.horizontalSpace(4),
+                        SetupMenuButton(
+                          index: 1,
+                          iconAsset: 'images/icon-photo.svg',
+                          selected: currentSelected,
+                          onTap: _onMenuTap,
+                          symanticsLabel: MapSetupView.content[1].label,
+                        ),
+                        UIHelper.horizontalSpace(4),
+                        SetupMenuButton(
+                          index: 2,
+                          iconAsset: 'images/icon-tour.svg',
+                          selected: currentSelected,
+                          onTap: _onMenuTap,
+                          symanticsLabel: MapSetupView.content[2].label,
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               ConfigContentWidget(
                 width: widget.width,

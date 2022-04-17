@@ -1,7 +1,31 @@
+import 'package:historical_guide/core/services/map_service.dart';
 import 'package:historical_guide/ui/base/base_model.dart';
 
 class OpacityControllerModel extends BaseModel {
-  get visibilityIndex => null;
+  OpacityControllerModel({required MapService mapService})
+      : _mapService = mapService {
+    _mapService.addListener(_onMapUpdate);
+  }
+  final MapService _mapService;
 
-  onOpacityChanged(int indexHidden) {}
+  late int _visibilityIndex = _mapService.currentMapMode;
+
+  int get visibilityIndex => _visibilityIndex;
+
+  void _onMapUpdate() {
+    _visibilityIndex = _mapService.currentMapMode;
+    notifyListeners();
+  }
+
+  void onOpacityChanged(int index) {
+    _visibilityIndex = index;
+    _mapService.setVisibilityIndex(index);
+    notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _mapService.removeListener(_onMapUpdate);
+    super.dispose();
+  }
 }
