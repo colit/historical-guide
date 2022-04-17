@@ -36,7 +36,7 @@ class _MapsViewState extends State<MapsView> {
                 accessToken: dotenv.env['ACCESS_TOKEN']!,
                 onMapCreated: model.onMapCreated,
                 onStyleLoadedCallback: model.onStyleLoadedCallback,
-                onCameraIdle: model.onCameraIdle,
+                onCameraIdle: model.getPhotosInViewport,
                 onMapClick: (_, __) {
                   model.cleanMap();
                 },

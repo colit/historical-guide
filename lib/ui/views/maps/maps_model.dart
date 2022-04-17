@@ -42,6 +42,8 @@ class MapsModel extends BaseModel {
   List<MapReference> get maps => _mapService.maps;
 
   bool _mapIsReady = false;
+  bool _photosVisible = true;
+  bool _toursVisible = true;
 
   bool isSetupVisible = false;
 
@@ -62,6 +64,17 @@ class MapsModel extends BaseModel {
             CameraUpdate.newLatLngBounds(_mapService.mapBounds!),
           )
           .then(_updateCameraPosition);
+    }
+    if (_photosVisible != _mapService.photosVisibility) {
+      _photosVisible = _mapService.photosVisibility;
+      if (_photosVisible) {
+        getPhotosInViewport();
+      } else {
+        _removePhotos();
+      }
+    }
+    if (_toursVisible != _mapService.toursVisibility) {
+      _toursVisible = _mapService.toursVisibility;
     }
     notifyListeners();
   }
@@ -158,7 +171,7 @@ class MapsModel extends BaseModel {
     _controller.removeLayer("track-line");
   }
 
-  void _addCircles(List<Tour> tours) {
+  void _addTourIcons(List<Tour> tours) {
     _controller.addCircles(
       tours.map((tour) {
         return CircleOptions(
@@ -175,6 +188,7 @@ class MapsModel extends BaseModel {
   }
 
   void _getFotos(LatLngBounds bounds) {
+    if (!_photosVisible) return;
     const pad = 0.2;
     final neLat = bounds.northeast.latitude;
     final neLng = bounds.northeast.longitude;
@@ -191,11 +205,16 @@ class MapsModel extends BaseModel {
       'yearTill': '3000',
     };
     _mapService.getPhotos(parameters).then((geoJson) {
-      _controller.setGeoJsonSource(kPhotoSourceId, geoJson);
+      _controller.setGeoJsonSource(
+          kPhotoSourceId, _photosVisible ? geoJson : {});
     });
   }
 
-  Future<void> _createSources() async {
+  void _removePhotos() {
+    _controller.setGeoJsonSource(kPhotoSourceId, {});
+  }
+
+  Future<void> _addPhotoIcons() async {
     await _controller.addSource(
       kPhotoSourceId,
       const GeojsonSourceProperties(
@@ -261,11 +280,13 @@ class MapsModel extends BaseModel {
     _sources = [];
     _selectedTour = null;
 
-    _createSources().then((_) {
+    _addPhotoIcons().then((_) {
       _controller.getVisibleRegion().then((value) => _getFotos(value));
     });
 
-    _tourService.getToursList().then((value) => _addCircles(value));
+    if (_toursVisible) {
+      _tourService.getToursList().then((value) => _addTourIcons(value));
+    }
 
     if (_mapIsReady) return;
 
@@ -278,7 +299,7 @@ class MapsModel extends BaseModel {
     });
   }
 
-  void onCameraIdle() {
+  void getPhotosInViewport() {
     final position = _controller.cameraPosition;
     if (position != null) {
       _mapService.updateCameraPosition(position.target, position.zoom);
