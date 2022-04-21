@@ -28,22 +28,56 @@ class TourDetailModel extends BaseModel {
     if (_tourId != null) {
       _tourService.getTourData(_tourId!).then((tour) {
         _tour = tour;
-        _controller?.animateCamera(CameraUpdate.newLatLngBounds(LatLngBounds(
-          northeast: LatLng(tour.boundsNE.latitude, tour.boundsNE.longitude),
-          southwest: LatLng(tour.boundsSW.latitude, tour.boundsSW.longitude),
-        )));
+        // zoom to current tour
+        _controller?.animateCamera(
+          CameraUpdate.newLatLngBounds(
+            LatLngBounds(
+              northeast:
+                  LatLng(tour.boundsNE.latitude, tour.boundsNE.longitude),
+              southwest:
+                  LatLng(tour.boundsSW.latitude, tour.boundsSW.longitude),
+            ),
+          ),
+        );
+        // show vector is exists
+        if (tour.vectorAssets != null) {
+          print(tour.vectorAssets);
+          _controller
+              ?.addSource(
+            'sourceVector',
+            GeojsonSourceProperties(data: tour.vectorAssets),
+          )
+              .then(
+            (value) {
+              _controller?.addLayer(
+                'sourceVector',
+                'poygon-layer',
+                const FillLayerProperties(
+                  fillColor: '#867950',
+                  fillOpacity: 0.5,
+                ),
+                // const LineLayerProperties(
+                //   lineColor: '#018b00',
+                //   lineWidth: 3.0,
+                // ),
+              );
+              // notifyListeners();
+            },
+          );
+        }
       });
     }
   }
 
   void _onMapChanged() {}
-  void getTourData(String id) {
-    setState(ViewState.busy);
-    _tourService.getTourData(id).then((tour) {
-      _tour = tour;
-      setState(ViewState.idle);
-    });
-  }
+
+  // void getTourData(String id) {
+  //   setState(ViewState.busy);
+  //   _tourService.getTourData(id).then((tour) {
+  //     _tour = tour;
+  //     setState(ViewState.idle);
+  //   });
+  // }
 
   get currentPosition => _mapService.currentPosition;
 
