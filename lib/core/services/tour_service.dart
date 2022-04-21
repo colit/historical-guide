@@ -1,7 +1,7 @@
 import 'package:historical_guide/core/models/image_entity.dart';
 import 'package:historical_guide/core/services/interfaces/i_database_repository.dart';
 
-import '../models/track.dart';
+import '../models/tour.dart';
 
 class TourService {
   TourService({required IDatabaseRepository databaseRepository})
@@ -18,5 +18,10 @@ class TourService {
     print('getImageInfo');
     final imageInfo = await _databaseRepository.getImageInfo(imageId);
     return imageInfo;
+  }
+
+  Future<Tour> getTourData(String id) async {
+    final tour = await _databaseRepository.getTour(id);
+    return tour;
   }
 }

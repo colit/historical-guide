@@ -87,19 +87,22 @@ class GraphQLQueries {
     tracks {
       edges {
         node {
+          id
           objectId
           name
           length
-          bounds {
-            ... on Element {
-              value
-            }
-          }
+          latitudeNE
+          longitudeNE
+          latitudeSW
+          longitudeSW
           start {
             latitude
             longitude
           }
           geojson {
+            url
+          }
+          vectorAssets {
             url
           }
         }
@@ -124,6 +127,34 @@ class GraphQLQueries {
             sourceURL
             image {
               url
+            }
+          }
+        }
+      }
+    }
+  ''';
+  static const getTourDetails = r'''
+    query getTourDetails($id: ID!) {
+      tracks (where: {objectId: {equalTo: $id}}) {
+        edges {
+          node {
+            objectId
+            name
+            length
+            latitudeNE
+            longitudeNE
+            latitudeSW
+            longitudeSW
+            geojson {
+              name
+              url
+            }
+            vectorAssets {
+              url
+            }
+            start {
+              latitude
+              longitude
             }
           }
         }

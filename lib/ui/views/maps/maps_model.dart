@@ -1,5 +1,5 @@
 import 'package:historical_guide/core/models/map_referece.dart';
-import 'package:historical_guide/core/models/track.dart';
+import 'package:historical_guide/core/models/tour.dart';
 import 'package:historical_guide/core/services/map_service.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import '../../../core/models/map_point.dart';

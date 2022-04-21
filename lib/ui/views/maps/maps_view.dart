@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:historical_guide/core/services/map_service.dart';
 import 'package:historical_guide/ui/base/base_widget.dart';
-import 'package:historical_guide/ui/views/maps/map_selector_plus/map_selector_plus_view.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:provider/provider.dart';
 

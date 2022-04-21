@@ -3,7 +3,7 @@ import 'package:historical_guide/core/exeptions/general_exeption.dart';
 import 'package:historical_guide/core/services/tour_service.dart';
 import 'package:historical_guide/ui/base/base_model.dart';
 
-import '../../../core/models/track.dart';
+import '../../../core/models/tour.dart';
 
 class ToursModel extends BaseModel {
   ToursModel({
@@ -29,11 +29,11 @@ class ToursModel extends BaseModel {
     });
   }
 
-  void showTour(int id) {
-    _appState.selectedPageId = id.toString();
+  void showTour(String id) {
+    _appState.selectedPageId = id;
     _appState.pushPage(
       name: 'tour_details',
-      arguments: TourDetailArguments(id.toString()),
+      arguments: TourDetailArguments(id),
     );
   }
 }

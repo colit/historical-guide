@@ -4,6 +4,7 @@ import 'package:pointer_interceptor/pointer_interceptor.dart';
 
 import '../../../../commons/theme.dart';
 import '../../../../widgets/size_detector_widget.dart';
+import '../../../tours/round_icon_button.dart';
 import '../config_view.dart';
 
 class ConfigContentWidget extends StatelessWidget {
@@ -50,6 +51,10 @@ class ConfigContentWidget extends StatelessWidget {
                     Positioned(
                       right: 0,
                       child: RoundIconButton(
+                        icon: const Icon(
+                          Icons.close,
+                          size: 16,
+                        ),
                         onTap: onClose,
                       ),
                     ),
@@ -59,40 +64,6 @@ class ConfigContentWidget extends StatelessWidget {
               ],
               UIHelper.verticalSpaceSmall(),
             ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class RoundIconButton extends StatelessWidget {
-  const RoundIconButton({
-    Key? key,
-    required this.onTap,
-  }) : super(key: key);
-
-  final void Function()? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(4),
-      child: Container(
-        clipBehavior: Clip.antiAlias,
-        decoration: const BoxDecoration(
-          shape: BoxShape.circle,
-        ),
-        child: Material(
-          child: InkWell(
-            onTap: onTap?.call,
-            child: const Padding(
-              padding: EdgeInsets.all(4),
-              child: Icon(
-                Icons.close,
-                size: 16,
-              ),
-            ),
           ),
         ),
       ),

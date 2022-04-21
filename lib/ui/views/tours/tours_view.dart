@@ -34,11 +34,12 @@ class ToursView extends StatelessWidget {
                             crossAxisSpacing: 20,
                             mainAxisSpacing: 20),
                     itemBuilder: (context, index) {
+                      final tour = model.tours[index];
                       return TourThumbnail(
                         id: index,
-                        label: model.tours[index].name,
-                        length: model.tours[index].length,
-                        onTap: (id) => model.showTour(id),
+                        label: tour.name,
+                        length: tour.length,
+                        onTap: (id) => model.showTour(tour.id),
                       );
                     }),
           );

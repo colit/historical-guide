@@ -9,7 +9,7 @@ import 'package:historical_guide/core/models/image_entity.dart';
 
 import 'package:historical_guide/core/models/map_referece.dart';
 import 'package:historical_guide/core/models/map_entity.dart';
-import 'package:historical_guide/core/models/track.dart';
+import 'package:historical_guide/core/models/tour.dart';
 import 'package:historical_guide/core/services/interfaces/i_database_repository.dart';
 
 import '../exeptions/general_exeption.dart';
@@ -72,8 +72,14 @@ class ParseServerRepository implements IDatabaseRepository {
           result.exception?.graphqlErrors.first.message ?? 'Server Error';
       throw GeneralExeption(title: 'graphQL Exception', message: message);
     } else {
-      return List<Tour>.from(result.data?['tracks']['edges']
-          .map((node) => Tour.fromGraphQL(node['node'])));
+      try {
+        final output = List<Tour>.from(result.data?['tracks']['edges']
+            .map((node) => Tour.fromGraphQL(node['node'])));
+        return output;
+      } catch (e) {
+        print(e);
+        return [];
+      }
     }
   }
 
@@ -115,6 +121,24 @@ class ParseServerRepository implements IDatabaseRepository {
     );
     final body = json.decode(response.body);
     return body['result'];
+  }
+
+  @override
+  Future<Tour> getTour(String id) async {
+    final options = QueryOptions(
+      document: gql(GraphQLQueries.getTourDetails),
+      variables: {'id': id},
+    );
+    final result = await client.query(options);
+    if (result.hasException) {
+      final message =
+          result.exception?.graphqlErrors.first.message ?? 'Server Error';
+      throw GeneralExeption(title: 'graphQL Exception', message: message);
+    } else {
+      final node = List.from(result.data?['tracks']['edges']).first['node'];
+      print(node);
+      return Tour.fromGraphQL(node);
+    }
   }
 }
 

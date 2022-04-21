@@ -10,6 +10,7 @@ class Tour {
     this.length,
     this.boundsSW,
     this.boundsNE,
+    this.vectorAssets,
   );
   final String id;
   final String name;
@@ -18,6 +19,7 @@ class Tour {
   final double length;
   final LatLng boundsSW;
   final LatLng boundsNE;
+  final String? vectorAssets;
 
   // factory Tour.fromParseObject(ParseObject obj) {
   //   final startPointObj = obj.get('start') as ParseGeoPoint;
@@ -44,6 +46,7 @@ class Tour {
       map['length'],
       map['bounds']['southwest'],
       map['bounds']['northeast'],
+      map['vectorAssets'],
     );
   }
 
@@ -62,8 +65,6 @@ class Tour {
   }
 
   factory Tour.fromGraphQL(dynamic node) {
-    final sw = node['bounds'][0]['value'];
-    final ne = node['bounds'][1]['value'];
     return Tour._(
       node['objectId'],
       node['name'],
@@ -73,8 +74,9 @@ class Tour {
         node['start']['longitude'],
       ),
       node['length'],
-      LatLng(sw['latitude'], sw['longitude']),
-      LatLng(ne['latitude'], ne['longitude']),
+      LatLng(node['latitudeSW'], node['longitudeSW']),
+      LatLng(node['latitudeNE'], node['longitudeNE']),
+      node['vectorAssets']['url'],
     );
   }
 }
