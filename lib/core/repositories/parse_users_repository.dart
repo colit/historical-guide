@@ -1,17 +1,17 @@
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:graphql/client.dart';
+import 'package:historical_guide/core/commons/graphql_setup.dart';
 import 'package:historical_guide/core/exeptions/general_exeption.dart';
 import 'package:historical_guide/core/services/interfaces/i_user_repository.dart';
-
-import '../commons/graphql_queries.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 
 class ParseUsersRepository implements IUsersRepository {
   GraphQLClient? _client;
   GraphQLClient get client {
     return _client ??= GraphQLClient(
       cache: GraphQLCache(),
-      link: HttpLink(GraphQLQueries.graphqlAPI,
-          defaultHeaders: GraphQLQueries.graphQLHeader),
+      link: HttpLink(GraphQLSetup.graphqlAPI,
+          defaultHeaders: GraphQLSetup.graphQLHeader),
     );
   }
 
@@ -26,12 +26,14 @@ class ParseUsersRepository implements IUsersRepository {
     );
 
     final result = await client.query(options);
+    print(result);
 
     if (result.hasException) {
       final message =
           result.exception?.graphqlErrors.first.message ?? 'Login Error';
       throw GeneralExeption(title: 'graphQL Exception', message: message);
     } else {
+      print(result.data);
       return result.data?['logIn']['viewer']['sessionToken'] as String;
     }
   }
@@ -65,7 +67,7 @@ class ParseUsersRepository implements IUsersRepository {
     final client = GraphQLClient(
       cache: GraphQLCache(),
       link: HttpLink(
-        GraphQLQueries.graphqlAPI,
+        GraphQLSetup.graphqlAPI,
         defaultHeaders: header,
       ),
     );

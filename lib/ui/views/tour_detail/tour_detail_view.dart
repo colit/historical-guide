@@ -3,15 +3,14 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:historical_guide/core/app_state.dart';
 import 'package:historical_guide/core/services/map_service.dart';
 import 'package:historical_guide/core/services/tour_service.dart';
-import 'package:historical_guide/ui/base/base_widget.dart';
-import 'package:historical_guide/ui/commons/theme.dart';
-import 'package:historical_guide/ui/ui_helpers.dart';
 import 'package:historical_guide/ui/views/tours/round_icon_button.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 import 'package:provider/provider.dart';
 
 import 'package:mapbox_gl/mapbox_gl.dart';
 
 import 'tour_detail_model.dart';
+import 'tour_stations_view.dart';
 
 class TourDetailView extends StatelessWidget {
   const TourDetailView({Key? key, required this.id}) : super(key: key);
@@ -26,8 +25,9 @@ class TourDetailView extends StatelessWidget {
             mapService: context.read<MapService>(),
             tourService: context.read<TourService>(),
           ),
-          // onModelReady: (model) => model.getTourData(id),
+          onModelReady: (model) => model.initModel(id),
           builder: (context, model, child) {
+            print('build with ${model.state}');
             return Row(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
@@ -70,7 +70,15 @@ class TourDetailView extends StatelessWidget {
                 Flexible(
                   flex: 3,
                   child: Container(
-                    color: kColorWhite,
+                    color: kColorSecondaryLight,
+                    child:
+                        // const Center(child: CircularProgressIndicator()),
+
+                        model.state == ViewState.busy
+                            ? const Center(child: CircularProgressIndicator())
+                            : TourStationsView(
+                                tour: model.tour,
+                              ),
                   ),
                 ),
               ],

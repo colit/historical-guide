@@ -1,10 +1,9 @@
 import 'package:historical_guide/core/models/map_referece.dart';
-import 'package:historical_guide/core/models/tour.dart';
 import 'package:historical_guide/core/services/map_service.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 import '../../../core/models/map_point.dart';
 import '../../../core/services/tour_service.dart';
-import '../../base/base_model.dart';
 
 class MapsModel extends BaseModel {
   static const String kPhotoSourceId = 'PHOTOS';

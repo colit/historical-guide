@@ -2,16 +2,16 @@ import 'dart:convert';
 
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:graphql/client.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:historical_guide/core/commons/graphql_queries.dart';
 import 'package:historical_guide/core/models/image_entity.dart';
 
 import 'package:historical_guide/core/models/map_referece.dart';
 import 'package:historical_guide/core/models/map_entity.dart';
-import 'package:historical_guide/core/models/tour.dart';
 import 'package:historical_guide/core/services/interfaces/i_database_repository.dart';
 
+import '../commons/graphql_setup.dart';
 import '../exeptions/general_exeption.dart';
 
 class ParseServerRepository implements IDatabaseRepository {
@@ -19,8 +19,8 @@ class ParseServerRepository implements IDatabaseRepository {
   GraphQLClient get client {
     return _client ??= GraphQLClient(
       cache: GraphQLCache(),
-      link: HttpLink(GraphQLQueries.graphqlAPI,
-          defaultHeaders: GraphQLQueries.graphQLHeader),
+      link: HttpLink(GraphQLSetup.graphqlAPI,
+          defaultHeaders: GraphQLSetup.graphQLHeader),
     );
   }
 

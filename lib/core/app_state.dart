@@ -104,7 +104,8 @@ class AppState extends ChangeNotifier {
         return MaterialPage(
           key: ValueKey(settings.name),
           child: TourDetailView(
-              id: (settings.arguments as TourDetailArguments).id.toString()),
+            id: (settings.arguments as TourDetailArguments).id.toString(),
+          ),
         );
       case 'login':
         return FadeAnimationPage(

@@ -34,6 +34,7 @@ class LoginModel extends BaseModel {
     _userService.doUserLogin(username, password).then((_) {
       _appState.gotoRootPage('shell');
     }).onError((error, stackTrace) {
+      print(error);
       _loginErrorMessage = (error as GeneralExeption).message;
       setState(ViewState.idle);
     });

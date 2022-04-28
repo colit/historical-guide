@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:historical_guide/core/services/interfaces/i_database_repository.dart';
-// import 'package:latlong2/latlong.dart' as latlng;
 import 'package:mapbox_gl/mapbox_gl.dart';
 import '../models/map_referece.dart';
 
@@ -120,5 +119,10 @@ class MapService extends ChangeNotifier {
     _currentPosition = camera;
     _currentZoom = zoom;
     _mapBounds = null;
+  }
+
+  void setZoomOn(LatLng position) {
+    updateCameraPosition(position, 17);
+    notifyListeners();
   }
 }

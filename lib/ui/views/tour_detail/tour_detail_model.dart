@@ -1,7 +1,7 @@
-import '../../../core/models/tour.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
+
 import '../../../core/services/map_service.dart';
 import '../../../core/services/tour_service.dart';
-import '../../base/base_model.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
 
 class TourDetailModel extends BaseModel {
@@ -15,19 +15,24 @@ class TourDetailModel extends BaseModel {
   final MapService _mapService;
   final TourService _tourService;
 
-  Tour? _tour;
+  late Tour _tour;
   String? _tourId;
   MapboxMapController? _controller;
 
+  Tour get tour => _tour;
+
   void onMapCreated(MapboxMapController controller, String tourId) {
     _controller = controller;
-    _tourId = tourId;
   }
 
   void onStyleLoadedCallback() {
+    _controller?.onFeatureTapped.add((id, point, coordinates) {
+      print('tapped: $point');
+    });
     if (_tourId != null) {
       _tourService.getTourData(_tourId!).then((tour) {
         _tour = tour;
+        setState(ViewState.idle);
         // zoom to current tour
         _controller?.animateCamera(
           CameraUpdate.newLatLngBounds(
@@ -41,7 +46,6 @@ class TourDetailModel extends BaseModel {
         );
         // show vector is exists
         if (tour.vectorAssets != null) {
-          print(tour.vectorAssets);
           _controller
               ?.addSource(
             'sourceVector',
@@ -56,20 +60,66 @@ class TourDetailModel extends BaseModel {
                   fillColor: '#867950',
                   fillOpacity: 0.5,
                 ),
-                // const LineLayerProperties(
-                //   lineColor: '#018b00',
-                //   lineWidth: 3.0,
-                // ),
               );
-              // notifyListeners();
             },
           );
         }
+        // show track
+        _controller
+            ?.addSource(
+          'sourceTrack',
+          GeojsonSourceProperties(
+            data: tour.geoJSON,
+          ),
+        )
+            .then((value) {
+          _controller?.addLayer(
+            'sourceTrack',
+            'track-layer-background',
+            const LineLayerProperties(
+              lineColor: '#ffffff',
+              lineWidth: 10.0,
+            ),
+          );
+          _controller?.addLayer(
+            'sourceTrack',
+            'track-layer',
+            const LineLayerProperties(
+              lineColor: '#018b00',
+              lineWidth: 4.0,
+            ),
+          );
+        });
+        // show Points of Interest
+        _controller
+            ?.addSource(
+          'sourcePoints',
+          GeojsonSourceProperties(
+            data: tour.poisAsGeoJson,
+          ),
+        )
+            .then((_) {
+          _controller?.addLayer(
+            'sourcePoints',
+            'points-layer',
+            const CircleLayerProperties(
+                circleColor: '#018b00', circleRadius: 10),
+          );
+        });
       });
     }
   }
 
-  void _onMapChanged() {}
+  void _onMapChanged() {
+    _controller?.animateCamera(
+      CameraUpdate.newCameraPosition(
+        CameraPosition(
+          target: _mapService.currentPosition,
+          zoom: _mapService.currentZoom,
+        ),
+      ),
+    );
+  }
 
   // void getTourData(String id) {
   //   setState(ViewState.busy);
@@ -89,5 +139,10 @@ class TourDetailModel extends BaseModel {
   void dispose() {
     _mapService.removeListener(_onMapChanged);
     super.dispose();
+  }
+
+  void initModel(String id) {
+    _tourId = id;
+    setState(ViewState.busy);
   }
 }

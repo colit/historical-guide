@@ -1,9 +1,7 @@
 import 'package:historical_guide/core/app_state.dart';
 import 'package:historical_guide/core/exeptions/general_exeption.dart';
 import 'package:historical_guide/core/services/tour_service.dart';
-import 'package:historical_guide/ui/base/base_model.dart';
-
-import '../../../core/models/tour.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 
 class ToursModel extends BaseModel {
   ToursModel({
