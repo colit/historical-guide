@@ -7,7 +7,7 @@ import 'package:historical_guide/ui/views/maps/map_config/tour_selector/tour_sel
 import 'widgets/config_content_widget.dart';
 import 'widgets/config_menu_button.dart';
 
-class MapSetupView extends StatefulWidget {
+class ConfigView extends StatefulWidget {
   static final content = [
     ConfigItem(
       label: 'Historische Karten',
@@ -23,7 +23,7 @@ class MapSetupView extends StatefulWidget {
     ),
   ];
 
-  const MapSetupView({
+  const ConfigView({
     Key? key,
     this.width,
     this.visible = false,
@@ -35,10 +35,10 @@ class MapSetupView extends StatefulWidget {
   final void Function()? onSetup;
 
   @override
-  State<MapSetupView> createState() => _MapSetupViewState();
+  State<ConfigView> createState() => _ConfigViewState();
 }
 
-class _MapSetupViewState extends State<MapSetupView>
+class _ConfigViewState extends State<ConfigView>
     with SingleTickerProviderStateMixin {
   late final AnimationController _controller = AnimationController(
     duration: const Duration(milliseconds: 300),
@@ -98,7 +98,7 @@ class _MapSetupViewState extends State<MapSetupView>
   }
 
   @override
-  void didUpdateWidget(covariant MapSetupView oldWidget) {
+  void didUpdateWidget(covariant ConfigView oldWidget) {
     if (!widget.visible) {
       _onClose();
     }
@@ -142,7 +142,7 @@ class _MapSetupViewState extends State<MapSetupView>
                           iconAsset: 'images/icon-map.svg',
                           selected: currentSelected,
                           onTap: _onMenuTap,
-                          symanticsLabel: MapSetupView.content[0].label,
+                          symanticsLabel: ConfigView.content[0].label,
                         ),
                         UIHelper.horizontalSpace(4),
                         SetupMenuButton(
@@ -150,7 +150,7 @@ class _MapSetupViewState extends State<MapSetupView>
                           iconAsset: 'images/icon-photo.svg',
                           selected: currentSelected,
                           onTap: _onMenuTap,
-                          symanticsLabel: MapSetupView.content[1].label,
+                          symanticsLabel: ConfigView.content[1].label,
                         ),
                         UIHelper.horizontalSpace(4),
                         SetupMenuButton(
@@ -158,7 +158,7 @@ class _MapSetupViewState extends State<MapSetupView>
                           iconAsset: 'images/icon-tour.svg',
                           selected: currentSelected,
                           onTap: _onMenuTap,
-                          symanticsLabel: MapSetupView.content[2].label,
+                          symanticsLabel: ConfigView.content[2].label,
                         ),
                       ],
                     ),
@@ -172,7 +172,7 @@ class _MapSetupViewState extends State<MapSetupView>
                 selected: currentSelected,
                 content: currentSelected == null
                     ? null
-                    : MapSetupView.content[currentSelected!],
+                    : ConfigView.content[currentSelected!],
               ),
             ],
           ),

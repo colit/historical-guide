@@ -136,7 +136,6 @@ class ParseServerRepository implements IDatabaseRepository {
       throw GeneralExeption(title: 'graphQL Exception', message: message);
     } else {
       final node = List.from(result.data?['tracks']['edges']).first['node'];
-      print(node);
       return Tour.fromGraphQL(node);
     }
   }

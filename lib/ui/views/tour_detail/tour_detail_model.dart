@@ -1,3 +1,4 @@
+import 'package:historical_guide/ui/widgets/pointer_interceptor/html_view_controller.dart';
 import 'package:historical_guides_commons/historical_guides_commons.dart';
 
 import '../../../core/services/map_service.dart';
@@ -19,93 +20,102 @@ class TourDetailModel extends BaseModel {
   String? _tourId;
   MapboxMapController? _controller;
 
+  int? _currentStationId;
+  int? get currentStationId => _currentStationId;
+
+  bool _tourLoaded = false;
+  bool get tourLoaded => _tourLoaded;
+
   Tour get tour => _tour;
+
+  void _onFeatureTipped(id, _, __) {
+    _currentStationId = id;
+    final point = _tour.pointsOfInterest[id].position;
+    _mapService.setZoomOn(LatLng(point.latitude, point.longitude));
+    _mapService.currentStationIndex = id;
+    notifyListeners();
+  }
 
   void onMapCreated(MapboxMapController controller, String tourId) {
     _controller = controller;
   }
 
   void onStyleLoadedCallback() {
-    _controller?.onFeatureTapped.add((id, point, coordinates) {
-      print('tapped: $point');
-    });
+    _controller?.onFeatureTapped.add(_onFeatureTipped);
     if (_tourId != null) {
-      _tourService.getTourData(_tourId!).then((tour) {
-        _tour = tour;
-        setState(ViewState.idle);
-        // zoom to current tour
-        _controller?.animateCamera(
-          CameraUpdate.newLatLngBounds(
-            LatLngBounds(
-              northeast:
-                  LatLng(tour.boundsNE.latitude, tour.boundsNE.longitude),
-              southwest:
-                  LatLng(tour.boundsSW.latitude, tour.boundsSW.longitude),
-            ),
+      // zoom to current tour
+      _controller?.animateCamera(
+        CameraUpdate.newLatLngBounds(
+          LatLngBounds(
+            northeast: LatLng(tour.boundsNE.latitude, tour.boundsNE.longitude),
+            southwest: LatLng(tour.boundsSW.latitude, tour.boundsSW.longitude),
+          ),
+          left: 50,
+          right: 50,
+          top: 50,
+          bottom: 50,
+        ),
+      );
+      // show vector is exists
+      if (tour.vectorAssets != null) {
+        _controller
+            ?.addSource(
+          'sourceVector',
+          GeojsonSourceProperties(data: tour.vectorAssets),
+        )
+            .then(
+          (value) {
+            _controller?.addLayer(
+              'sourceVector',
+              'poygon-layer',
+              const FillLayerProperties(
+                fillColor: '#867950',
+                fillOpacity: 0.5,
+              ),
+            );
+          },
+        );
+      }
+      // show track
+      _controller
+          ?.addSource(
+        'sourceTrack',
+        GeojsonSourceProperties(
+          data: tour.geoJSON,
+        ),
+      )
+          .then((value) {
+        _controller?.addLayer(
+          'sourceTrack',
+          'track-layer-background',
+          const LineLayerProperties(
+            lineColor: '#ffffff',
+            lineWidth: 10.0,
           ),
         );
-        // show vector is exists
-        if (tour.vectorAssets != null) {
-          _controller
-              ?.addSource(
-            'sourceVector',
-            GeojsonSourceProperties(data: tour.vectorAssets),
-          )
-              .then(
-            (value) {
-              _controller?.addLayer(
-                'sourceVector',
-                'poygon-layer',
-                const FillLayerProperties(
-                  fillColor: '#867950',
-                  fillOpacity: 0.5,
-                ),
-              );
-            },
-          );
-        }
-        // show track
-        _controller
-            ?.addSource(
+        _controller?.addLayer(
           'sourceTrack',
-          GeojsonSourceProperties(
-            data: tour.geoJSON,
+          'track-layer',
+          const LineLayerProperties(
+            lineColor: '#018b00',
+            lineWidth: 4.0,
           ),
-        )
-            .then((value) {
-          _controller?.addLayer(
-            'sourceTrack',
-            'track-layer-background',
-            const LineLayerProperties(
-              lineColor: '#ffffff',
-              lineWidth: 10.0,
-            ),
-          );
-          _controller?.addLayer(
-            'sourceTrack',
-            'track-layer',
-            const LineLayerProperties(
-              lineColor: '#018b00',
-              lineWidth: 4.0,
-            ),
-          );
-        });
-        // show Points of Interest
-        _controller
-            ?.addSource(
+        );
+      });
+      // show Points of Interest
+      _controller
+          ?.addSource(
+        'sourcePoints',
+        GeojsonSourceProperties(
+          data: tour.poisAsGeoJson,
+        ),
+      )
+          .then((_) {
+        _controller?.addLayer(
           'sourcePoints',
-          GeojsonSourceProperties(
-            data: tour.poisAsGeoJson,
-          ),
-        )
-            .then((_) {
-          _controller?.addLayer(
-            'sourcePoints',
-            'points-layer',
-            const CircleLayerProperties(
-                circleColor: '#018b00', circleRadius: 10),
-          );
-        });
+          'points-layer',
+          const CircleLayerProperties(circleColor: '#018b00', circleRadius: 10),
+        );
       });
     }
   }
@@ -137,6 +147,7 @@ class TourDetailModel extends BaseModel {
 
   @override
   void dispose() {
+    _mapService.cleanCurrentStationIndex();
     _mapService.removeListener(_onMapChanged);
     super.dispose();
   }
@@ -144,5 +155,11 @@ class TourDetailModel extends BaseModel {
   void initModel(String id) {
     _tourId = id;
     setState(ViewState.busy);
+    _tourService.getTourData(_tourId!).then((tour) {
+      _tour = tour;
+      _tourLoaded = true;
+      // HtmlElementViewController().reset();
+      setState(ViewState.idle);
+    });
   }
 }

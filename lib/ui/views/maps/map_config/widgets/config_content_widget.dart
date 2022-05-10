@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:historical_guide/ui/ui_helpers.dart';
-import 'package:pointer_interceptor/pointer_interceptor.dart';
+import 'package:historical_guide/ui/widgets/pointer_interceptor/web.dart';
 
 import '../../../../commons/theme.dart';
 import '../../../../widgets/size_detector_widget.dart';
-import '../../../tours/round_icon_button.dart';
+import '../../../../widgets/round_icon_button.dart';
 import '../config_view.dart';
 
 class ConfigContentWidget extends StatelessWidget {

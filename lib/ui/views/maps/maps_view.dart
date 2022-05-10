@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:historical_guide/core/services/map_service.dart';
-import 'package:historical_guide/ui/base/base_widget.dart';
+
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 import 'package:mapbox_gl/mapbox_gl.dart';
+// import 'package:pointer_interceptor/pointer_interceptor.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/services/tour_service.dart';
-import 'image_layer/image_layer_view.dart';
-import 'map_config/config_view.dart';
 import 'maps_model.dart';
+import 'widgets/tour_preview_widget.dart';
 
 class MapsView extends StatefulWidget {
   const MapsView({Key? key}) : super(key: key);
@@ -20,6 +21,7 @@ class MapsView extends StatefulWidget {
 class _MapsViewState extends State<MapsView> {
   @override
   Widget build(BuildContext context) {
+    print('build MapsView');
     return LayoutBuilder(builder: (context, constrains) {
       final width = constrains.maxWidth;
       return BaseWidget<MapsModel>(
@@ -28,6 +30,7 @@ class _MapsViewState extends State<MapsView> {
           tourService: context.read<TourService>(),
         ),
         builder: (context, model, child) {
+          print('build map view');
           return Stack(
             alignment: AlignmentDirectional.center,
             children: [
@@ -47,23 +50,31 @@ class _MapsViewState extends State<MapsView> {
               ),
               Positioned(
                 top: 0,
-                child: BottomShadowWidget(width: width),
-              ),
-              Positioned(
-                  bottom: 0,
-                  child: MapSetupView(
-                    width: width,
-                    visible: model.isSetupVisible,
-                    onSetup: () {
-                      model.isSetupVisible = true;
-                    },
-                  )),
-              Positioned.fill(
-                child: ImageLayerView(
-                  image: model.selectedPoint,
-                  onDismiss: model.removeSelectedImage,
+                child: TourPreviewWidget(
+                  selectedTour: model.selectedTour,
                 ),
               ),
+              Positioned(
+                top: 0,
+                child: BottomShadowWidget(
+                  width: width,
+                ),
+              ),
+              // Positioned(
+              //     bottom: 0,
+              //     child: ConfigView(
+              //       width: width,
+              //       visible: model.isSetupVisible,
+              //       onSetup: () {
+              //         model.isSetupVisible = true;
+              //       },
+              //     )),
+              // Positioned.fill(
+              //   child: ImageLayerView(
+              //     image: model.selectedPoint,
+              //     onDismiss: model.removeSelectedImage,
+              //   ),
+              // ),
             ],
           );
         },

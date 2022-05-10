@@ -46,12 +46,19 @@ class MapService extends ChangeNotifier {
   int _visibilityIndex = 2;
   LatLng _currentPosition = const LatLng(50.941303, 6.958138);
   double _currentZoom = 16;
+  int? _currentStationIndex;
 
   MapReference get currentMap => _currentMap ?? MapService.todayMap;
   List<MapReference> get maps => _maps;
   LatLngBounds? get mapBounds => _mapBounds;
   LatLng get currentPosition => _currentPosition;
   double get currentZoom => _currentZoom;
+  int? get currentStationIndex => _currentStationIndex;
+
+  set currentStationIndex(int? index) {
+    _currentStationIndex = index;
+    notifyListeners();
+  }
 
   String get currentStyle {
     if (_currentMap == null) {
@@ -124,5 +131,9 @@ class MapService extends ChangeNotifier {
   void setZoomOn(LatLng position) {
     updateCameraPosition(position, 17);
     notifyListeners();
+  }
+
+  void cleanCurrentStationIndex() {
+    _currentStationIndex = null;
   }
 }

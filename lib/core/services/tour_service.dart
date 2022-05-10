@@ -14,7 +14,6 @@ class TourService {
   }
 
   Future<ImageEntity> getImageInfo(int imageId) async {
-    print('getImageInfo');
     final imageInfo = await _databaseRepository.getImageInfo(imageId);
     return imageInfo;
   }

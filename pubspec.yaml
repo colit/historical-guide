@@ -21,8 +21,9 @@ dependencies:
   graphql: ^5.0.1 # MIT
   hive: ^2.1.0 # Apache License, Version 2.0
   # pointer_interceptor: ^0.9.3
-  pointer_interceptor:
-    path: ../../pub_dev/packages/packages/pointer_interceptor
+  pointer_interceptor: ^0.9.3+1
+  # pointer_interceptor:
+  #   path: ../../pub_dev/packages/packages/pointer_interceptor
   # parse_server_sdk: ^3.1.0
   url_launcher: ^6.0.2
   flutter_svg: ^1.0.3

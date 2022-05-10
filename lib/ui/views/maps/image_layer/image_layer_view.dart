@@ -7,7 +7,7 @@ import 'package:historical_guide/ui/commons/theme.dart';
 import 'package:historical_guide/ui/ui_helpers.dart';
 import 'package:historical_guide/ui/views/maps/image_layer/image_layer_model.dart';
 import 'package:historical_guide/ui/widgets/network_image_widget.dart';
-import 'package:pointer_interceptor/pointer_interceptor.dart';
+import 'package:historical_guide/ui/widgets/pointer_interceptor/web.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 

@@ -334,10 +334,10 @@ packages:
   pointer_interceptor:
     dependency: "direct main"
     description:
-      path: "../../pub_dev/packages/packages/pointer_interceptor"
-      relative: true
-    source: path
-    version: "0.9.3"
+      name: pointer_interceptor
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.9.3+1"
   provider:
     dependency: "direct main"
     description:

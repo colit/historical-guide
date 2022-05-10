@@ -47,6 +47,8 @@ class MapsModel extends BaseModel {
 
   bool isSetupVisible = false;
 
+  Tour? get selectedTour => _selectedTour;
+
   void _updateCameraPosition(succes) {
     if (succes ?? false) {
       final target = _controller.cameraPosition?.target;
@@ -112,7 +114,7 @@ class MapsModel extends BaseModel {
               ),
               left: 40,
               right: 40,
-              top: 40,
+              top: 140,
               bottom: 40,
             ),
           )
@@ -130,9 +132,12 @@ class MapsModel extends BaseModel {
     }
 
     _removeTrack();
+
     if (_selectedTour != null) {
       _addTrack();
     }
+
+    notifyListeners();
   }
 
   void _onFeatureTapped(id, point, __) {

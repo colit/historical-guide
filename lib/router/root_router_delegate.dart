@@ -44,16 +44,10 @@ class RootRouterDelegate extends RouterDelegate<AppRoutePath>
   @override
   Widget build(BuildContext context) {
     print('build root router delegate');
+
     return Navigator(
       key: navigatorKey,
       pages: _appState.getRootPage(),
-      // [
-      //   MaterialPage(
-      //     child: context.read<UserService>().loggedIn
-      //         ? const AppShell()
-      //         : const LoginView(),
-      //   )
-      // ],
       onPopPage: _onPopPage,
     );
   }

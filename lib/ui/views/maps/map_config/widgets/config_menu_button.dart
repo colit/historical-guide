@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:pointer_interceptor/pointer_interceptor.dart';
+import 'package:historical_guide/ui/widgets/pointer_interceptor/web.dart';
 
 import '../../../../commons/theme.dart';
 
@@ -25,6 +25,7 @@ class SetupMenuButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final active = index == selected;
     return PointerInterceptor(
+      debug: true,
       child: Tooltip(
         message: symanticsLabel ?? '',
         child: Container(
