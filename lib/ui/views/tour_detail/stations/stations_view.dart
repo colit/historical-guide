@@ -12,7 +12,7 @@ class StationsView extends StatefulWidget {
     required this.stations,
   }) : super(key: key);
 
-  final List<PointOfInterest> stations;
+  final List<Station> stations;
 
   @override
   State<StationsView> createState() => _StationsViewState();

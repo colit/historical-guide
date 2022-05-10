@@ -15,11 +15,11 @@ class StationsModel extends BaseModel {
 
   PageController get pageController => _pageController;
 
-  List<PointOfInterest> _pointsOfInterest = [];
+  List<Station> _stations = [];
   int? _currentPageIndex;
   int? get currentPageIndex => _currentPageIndex;
 
-  int get pointsCount => _pointsOfInterest.length;
+  int get pointsCount => _stations.length;
 
   void _onMapChanged() {
     print('map changed with ${_mapService.currentStationIndex}');
@@ -45,7 +45,7 @@ class StationsModel extends BaseModel {
       curve: Curves.easeOut,
     );
     // animate map
-    final poi = _pointsOfInterest[index];
+    final poi = _stations[index];
     _mapService.setZoomOn(LatLng(
       poi.position.latitude,
       poi.position.longitude,
@@ -65,14 +65,14 @@ class StationsModel extends BaseModel {
   void showNextStation() {
     if (_currentPageIndex != null) {
       _currentPageIndex = _currentPageIndex! + 1;
-      if (_currentPageIndex! < _pointsOfInterest.length) {
+      if (_currentPageIndex! < _stations.length) {
         _animateToPage(_currentPageIndex!);
       }
     }
   }
 
-  void initModel(List<PointOfInterest> pointsOfInterest) {
-    _pointsOfInterest = pointsOfInterest;
+  void initModel(List<Station> stations) {
+    _stations = stations;
   }
 
   @override

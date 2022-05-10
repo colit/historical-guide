@@ -1,4 +1,3 @@
-import 'package:historical_guide/ui/widgets/pointer_interceptor/html_view_controller.dart';
 import 'package:historical_guides_commons/historical_guides_commons.dart';
 
 import '../../../core/services/map_service.dart';
@@ -30,7 +29,7 @@ class TourDetailModel extends BaseModel {
 
   void _onFeatureTipped(id, _, __) {
     _currentStationId = id;
-    final point = _tour.pointsOfInterest[id].position;
+    final point = _tour.stations[id].position;
     _mapService.setZoomOn(LatLng(point.latitude, point.longitude));
     _mapService.currentStationIndex = id;
     notifyListeners();
@@ -107,7 +106,7 @@ class TourDetailModel extends BaseModel {
           ?.addSource(
         'sourcePoints',
         GeojsonSourceProperties(
-          data: tour.poisAsGeoJson,
+          data: tour.stationsAsGeoJson,
         ),
       )
           .then((_) {

@@ -26,7 +26,7 @@ class DescriptionView extends StatelessWidget {
           ],
           Text('${tour.length.toStringAsFixed(1)} km'),
           UIHelper.verticalSpaceSmall(),
-          Text('${tour.pointsOfInterest.length} Stationen'),
+          Text('${tour.stations.length} Stationen'),
           UIHelper.verticalSpaceSmall(),
           ElevatedButton(
             onPressed: onTourStart?.call,

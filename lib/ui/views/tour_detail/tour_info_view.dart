@@ -45,7 +45,7 @@ class _TourInfoViewState extends State<TourInfoView>
             mapService.currentStationIndex = 0;
             index = 0;
           }
-          final poi = widget.tour.pointsOfInterest[index].position;
+          final poi = widget.tour.stations[index].position;
           mapService.setZoomOn(LatLng(poi.latitude, poi.longitude));
           break;
       }
@@ -100,7 +100,7 @@ class _TourInfoViewState extends State<TourInfoView>
                   },
                 ),
                 StationsView(
-                  stations: widget.tour.pointsOfInterest,
+                  stations: widget.tour.stations,
                 ),
               ],
             ),

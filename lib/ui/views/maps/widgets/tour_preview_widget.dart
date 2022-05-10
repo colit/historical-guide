@@ -85,8 +85,7 @@ class _TourPreviewWidgetState extends State<TourPreviewWidget>
                     children: [
                       Text(widget.selectedTour?.name ?? 'No tour selected'),
                       Text('Tourlänge: ${widget.selectedTour?.length} km'),
-                      Text(
-                          '${widget.selectedTour?.pointsOfInterest.length} Stationen'),
+                      Text('${widget.selectedTour?.stations.length} Stationen'),
                     ],
                   ),
                 ),
