@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:historical_guide/core/app_state.dart';
 import 'package:historical_guide/router/app_route_information_parser.dart';
 import 'package:historical_guide/router/root_router_delegate.dart';
-import 'package:historical_guide/ui/commons/theme.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 import 'package:provider/provider.dart';
 
 class AppRootWidget extends StatelessWidget {

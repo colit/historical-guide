@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 
-import '../../commons/theme.dart';
 import 'navigation_item.dart';
 
 class NavigationBarWeb extends StatelessWidget {

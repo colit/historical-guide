@@ -8,6 +8,8 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/services/tour_service.dart';
+import 'image_layer/image_layer_view.dart';
+import 'map_config/config_view.dart';
 import 'maps_model.dart';
 import 'widgets/tour_preview_widget.dart';
 
@@ -60,21 +62,21 @@ class _MapsViewState extends State<MapsView> {
                   width: width,
                 ),
               ),
-              // Positioned(
-              //     bottom: 0,
-              //     child: ConfigView(
-              //       width: width,
-              //       visible: model.isSetupVisible,
-              //       onSetup: () {
-              //         model.isSetupVisible = true;
-              //       },
-              //     )),
-              // Positioned.fill(
-              //   child: ImageLayerView(
-              //     image: model.selectedPoint,
-              //     onDismiss: model.removeSelectedImage,
-              //   ),
-              // ),
+              Positioned(
+                  bottom: 0,
+                  child: ConfigView(
+                    width: width,
+                    visible: model.isSetupVisible,
+                    onSetup: () {
+                      model.isSetupVisible = true;
+                    },
+                  )),
+              Positioned.fill(
+                child: ImageLayerView(
+                  image: model.selectedPoint,
+                  onDismiss: model.removeSelectedImage,
+                ),
+              ),
             ],
           );
         },

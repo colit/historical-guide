@@ -3,7 +3,7 @@ import 'package:historical_guide/core/repositories/parse_server_repository.dart'
 import 'package:historical_guide/core/repositories/parse_users_repository.dart';
 import 'package:historical_guide/core/services/tour_service.dart';
 import 'package:historical_guide/core/services/user_service.dart';
-import 'package:historical_guide/ui/commons/theme.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 import 'package:provider/provider.dart';
 import 'package:provider/single_child_widget.dart';
 

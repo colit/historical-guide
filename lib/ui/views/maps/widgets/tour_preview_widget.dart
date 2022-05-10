@@ -84,8 +84,9 @@ class _TourPreviewWidgetState extends State<TourPreviewWidget>
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(widget.selectedTour?.name ?? 'No tour selected'),
-                      Text('Tourlänge: ${widget.selectedTour?.length} km'),
-                      Text('${widget.selectedTour?.stations.length} Stationen'),
+                      UIHelper.verticalSpaceSmall(),
+                      Text(
+                          'Tourlänge: ${widget.selectedTour?.length.toStringAsFixed(1)} km'),
                     ],
                   ),
                 ),

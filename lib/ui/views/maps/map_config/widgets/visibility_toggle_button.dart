@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:historical_guide/ui/commons/theme.dart';
-import 'package:historical_guide/ui/ui_helpers.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 
 class VisibilityToggleButton extends StatefulWidget {
   const VisibilityToggleButton({

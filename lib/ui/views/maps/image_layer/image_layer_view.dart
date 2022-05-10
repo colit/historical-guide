@@ -2,12 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:historical_guide/core/models/image_entity.dart';
 import 'package:historical_guide/core/models/map_point.dart';
 import 'package:historical_guide/core/services/tour_service.dart';
-import 'package:historical_guide/ui/base/base_widget.dart';
-import 'package:historical_guide/ui/commons/theme.dart';
-import 'package:historical_guide/ui/ui_helpers.dart';
 import 'package:historical_guide/ui/views/maps/image_layer/image_layer_model.dart';
 import 'package:historical_guide/ui/widgets/network_image_widget.dart';
 import 'package:historical_guide/ui/widgets/pointer_interceptor/web.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 

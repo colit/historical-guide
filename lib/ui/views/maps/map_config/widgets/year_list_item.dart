@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:historical_guide/core/services/map_service.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/models/map_referece.dart';
-import '../../../../commons/theme.dart';
-import '../../../../ui_helpers.dart';
 import '../../map_selector_plus/widgets/map_opacity_controller_widget.dart';
 import '../opacity_controller/opacity_controller_view.dart';
 

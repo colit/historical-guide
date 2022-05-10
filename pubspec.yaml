@@ -29,6 +29,7 @@ dependencies:
   flutter_svg: ^1.0.3
   flutter_dotenv: ^5.0.2
   http: ^0.13.4
+  flutter_markdown: ^0.6.10
   historical_guides_commons:
     path: ../historical_guides_commons
 

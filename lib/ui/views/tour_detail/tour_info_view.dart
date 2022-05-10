@@ -83,14 +83,18 @@ class _TourInfoViewState extends State<TourInfoView>
       backgroundColor: kColorSecondaryLight,
       body: Column(
         children: [
-          TabBar(
-            controller: tabController,
-            isScrollable: false,
-            tabs: tabs,
+          Container(
+            color: kColorWhite,
+            child: TabBar(
+              controller: tabController,
+              isScrollable: false,
+              tabs: tabs,
+            ),
           ),
           Expanded(
             child: TabBarView(
               controller: tabController,
+              physics: const NeverScrollableScrollPhysics(),
               children: [
                 DescriptionView(
                   tour: widget.tour,

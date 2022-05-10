@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:historical_guide/ui/widgets/pointer_interceptor/web.dart';
-
-import '../../../../commons/theme.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 
 class SetupMenuButton extends StatelessWidget {
   static const double height = 44;
@@ -24,20 +23,19 @@ class SetupMenuButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final active = index == selected;
-    return PointerInterceptor(
-      debug: true,
-      child: Tooltip(
-        message: symanticsLabel ?? '',
-        child: Container(
-          clipBehavior: Clip.antiAlias,
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(10),
-              topRight: Radius.circular(10),
-            ),
+    return Tooltip(
+      message: symanticsLabel ?? '',
+      child: Container(
+        clipBehavior: Clip.antiAlias,
+        decoration: const BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(10),
+            topRight: Radius.circular(10),
           ),
-          child: Material(
-            color: active ? kColorBackgroundLight : kColorPrimary,
+        ),
+        child: Material(
+          color: active ? kColorBackgroundLight : kColorPrimary,
+          child: PointerInterceptor(
             child: InkWell(
               onTap: active ? null : () => onTap?.call(index),
               child: SizedBox(

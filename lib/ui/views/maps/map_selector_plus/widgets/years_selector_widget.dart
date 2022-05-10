@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:historical_guide/core/models/map_referece.dart';
-import 'package:historical_guide/ui/ui_helpers.dart';
 import 'package:historical_guide/ui/widgets/pointer_interceptor/web.dart';
-import '../../../../commons/theme.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 import '../../map_config/widgets/year_list_item.dart';
 import '../map_selector_plus_view.dart';
 

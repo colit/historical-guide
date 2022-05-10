@@ -2,9 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:historical_guide/core/app_state.dart';
 import 'package:historical_guide/core/services/user_service.dart';
-import 'package:historical_guide/ui/base/base_widget.dart';
-import 'package:historical_guide/ui/commons/theme.dart';
-import 'package:historical_guide/ui/ui_helpers.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 import 'package:provider/provider.dart';
 
 import 'login_model.dart';
@@ -15,7 +13,7 @@ class LoginView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Color(0xFFEFEFEF),
+        backgroundColor: const Color(0xFFEFEFEF),
         body: BaseWidget<LoginModel>(
             model: LoginModel(
               userService: context.read<UserService>(),

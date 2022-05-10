@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:historical_guide/core/services/user_service.dart';
-import 'package:historical_guide/ui/commons/theme.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 import 'package:provider/provider.dart';
 
 import '../../core/app_state.dart';

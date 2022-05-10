@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:historical_guide/ui/commons/theme.dart';
 import 'package:historical_guide/ui/widgets/pointer_interceptor/web.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 
 class MapOpacityControllerWidget extends StatefulWidget {
   static const indexHidden = 0;

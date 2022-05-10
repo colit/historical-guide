@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:historical_guides_commons/historical_guides_commons.dart';
 import 'package:provider/provider.dart';
 
@@ -43,14 +44,43 @@ class _StationsViewState extends State<StationsView>
                   return Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 4),
                     child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: UIHelper.kVerticalSpaceMedium,
+                      ),
                       decoration: const BoxDecoration(
                         color: kColorWhite,
                         borderRadius: BorderRadius.all(
                           Radius.circular(UIHelper.kHorizontalSpaceSmall),
                         ),
                       ),
-                      child: Center(
-                        child: Text(widget.stations[index].titel),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: UIHelper.kHorizontalSpaceLarge,
+                            ),
+                            child: Text(
+                              widget.stations[index].titel,
+                              style: Theme.of(context).textTheme.headline1,
+                            ),
+                          ),
+                          UIHelper.verticalSpaceMedium(),
+                          Expanded(
+                            child: SingleChildScrollView(
+                              padding: const EdgeInsets.symmetric(
+                                horizontal: UIHelper.kHorizontalSpaceLarge,
+                              ),
+                              child: MarkdownBody(
+                                data: widget.stations[index].description ?? '',
+                                styleSheet: context
+                                    .read<GlobalTheme>()
+                                    .markDownStyleSheet,
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                     ),
                   );

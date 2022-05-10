@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:historical_guide/ui/base/base_widget.dart';
 import 'package:historical_guide/ui/views/maps/map_config/opacity_controller/opacity_controller_model.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/services/map_service.dart';
-import '../../../../commons/theme.dart';
 import '../../map_selector_plus/widgets/map_opacity_controller_widget.dart';
 
 class OpacityControllerView extends StatelessWidget {

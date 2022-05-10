@@ -16,9 +16,10 @@ class UIStyles {
     primarySwatch: Colors.indigo,
     primaryColor: Colors.indigoAccent[100],
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    textTheme: TextTheme(
+    textTheme: const TextTheme(
       bodyText1: TextStyle(color: Colors.white),
       bodyText2: TextStyle(color: Colors.black),
+      headline1: TextStyle(fontSize: 24),
     ),
   );
 }
