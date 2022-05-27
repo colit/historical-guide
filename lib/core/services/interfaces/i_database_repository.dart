@@ -1,4 +1,3 @@
-import 'package:historical_guide/core/models/image_entity.dart';
 import 'package:historical_guides_commons/historical_guides_commons.dart';
 
 import '../../models/map_entity.dart';

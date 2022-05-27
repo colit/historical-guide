@@ -1,7 +1,6 @@
-import 'package:historical_guide/core/models/image_entity.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 
 import '../../../../core/services/tour_service.dart';
-import '../../../base/base_model.dart';
 
 class ImageLayerModel extends BaseModel {
   ImageLayerModel({required TourService tourService})

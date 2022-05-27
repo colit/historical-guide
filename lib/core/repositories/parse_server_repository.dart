@@ -5,8 +5,6 @@ import 'package:graphql/client.dart';
 import 'package:historical_guides_commons/historical_guides_commons.dart';
 import 'package:http/http.dart' as http;
 
-import 'package:historical_guide/core/models/image_entity.dart';
-
 import 'package:historical_guide/core/models/map_referece.dart';
 import 'package:historical_guide/core/models/map_entity.dart';
 import 'package:historical_guide/core/services/interfaces/i_database_repository.dart';

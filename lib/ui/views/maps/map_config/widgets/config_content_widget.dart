@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:historical_guide/ui/widgets/pointer_interceptor/web.dart';
 import 'package:historical_guides_commons/historical_guides_commons.dart';
 
-import '../../../../widgets/size_detector_widget.dart';
 import '../../../../widgets/round_icon_button.dart';
 import '../config_view.dart';
 
