@@ -17,7 +17,7 @@ class StationsModel extends BaseModel {
 
   List<Station> _stations = [];
   int? _currentPageIndex;
-  int? get currentPageIndex => _currentPageIndex;
+  int get currentPageIndex => _currentPageIndex ?? 0;
 
   int get pointsCount => _stations.length;
 

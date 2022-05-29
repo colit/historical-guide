@@ -2,8 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:historical_guide/core/services/tour_service.dart';
 import 'package:historical_guides_commons/historical_guides_commons.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ImageDetailsView extends StatefulWidget {
+  static Future<void> launchInBrowser(String url) async {
+    if (await canLaunch(url)) {
+      await launch(
+        url,
+        forceSafariVC: false,
+        forceWebView: false,
+        headers: <String, String>{'origin': 'Piligrim App'},
+      );
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
+
   const ImageDetailsView({
     Key? key,
     required this.imageId,
@@ -103,12 +117,12 @@ class _ImageDetailsViewState extends State<ImageDetailsView> {
                                 ElevatedButton(
                                   onPressed: () {
                                     if (image.sourceURL != null) {
-                                      // try {
-                                      //   ImageLayerView.launchInBrowser(
-                                      //       image.sourceURL!);
-                                      // } catch (e) {
-                                      //   print(e);
-                                      // }
+                                      try {
+                                        ImageDetailsView.launchInBrowser(
+                                            image.sourceURL!);
+                                      } catch (e) {
+                                        print(e);
+                                      }
                                     }
                                   },
                                   child: Text(

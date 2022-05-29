@@ -36,29 +36,32 @@ class _AppShellState extends State<AppShell> {
   @override
   Widget build(BuildContext context) {
     _backButtonDispatcher?.takePriority();
-    return Consumer<AppState>(
-      builder: ((context, value, child) {
-        return Scaffold(
-          body: Column(
-            children: [
-              Container(
-                color: kColorBackgroundLight,
-                child: NavigationBarWeb(
-                    selectedIndex: appState.selectedIndex,
-                    onTap: (index) {
-                      appState.setHomePage(index);
-                    }),
-              ),
-              Expanded(
-                child: Router(
-                  routerDelegate: _shellRouterDelegate,
-                  backButtonDispatcher: _backButtonDispatcher,
+    return ModalViewManager(
+      modalViewService: context.read<ModalViewService>(),
+      child: Consumer<AppState>(
+        builder: ((context, value, child) {
+          return Scaffold(
+            body: Column(
+              children: [
+                Container(
+                  color: kColorBackgroundLight,
+                  child: NavigationBarWeb(
+                      selectedIndex: appState.selectedIndex,
+                      onTap: (index) {
+                        appState.setHomePage(index);
+                      }),
                 ),
-              ),
-            ],
-          ),
-        );
-      }),
+                Expanded(
+                  child: Router(
+                    routerDelegate: _shellRouterDelegate,
+                    backButtonDispatcher: _backButtonDispatcher,
+                  ),
+                ),
+              ],
+            ),
+          );
+        }),
+      ),
     );
   }
 }

@@ -33,6 +33,8 @@ class _StationsViewState extends State<StationsView>
         ),
         onModelReady: (model) => model.initModel(widget.stations),
         builder: (context, model, child) {
+          final isNextStation = model.currentPageIndex < model.pointsCount - 1;
+          final isPreviousStation = model.currentPageIndex > 0;
           return Stack(
             alignment: Alignment.center,
             children: [
@@ -41,31 +43,33 @@ class _StationsViewState extends State<StationsView>
                 itemCount: model.pointsCount,
                 physics: const NeverScrollableScrollPhysics(),
                 itemBuilder: (context, index) {
-                  return StationItemWidget(station: widget.stations[index]);
+                  return StationItemWidget(
+                    station: widget.stations[index],
+                    onNextStation: isNextStation ? model.showNextStation : null,
+                  );
                 },
               ),
-              if (model.currentPageIndex != null)
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    PageViewButton(
-                      icon: const Icon(
-                        Icons.arrow_back_ios_new,
-                        color: kColorWhite,
-                      ),
-                      visible: model.currentPageIndex! > 0,
-                      onTap: model.showPreviousStation,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  PageViewButton(
+                    icon: const Icon(
+                      Icons.arrow_back_ios_new,
+                      color: kColorWhite,
                     ),
-                    PageViewButton(
-                      icon: const Icon(
-                        Icons.arrow_forward_ios,
-                        color: kColorWhite,
-                      ),
-                      visible: model.currentPageIndex! < model.pointsCount - 1,
-                      onTap: model.showNextStation,
+                    visible: isPreviousStation,
+                    onTap: model.showPreviousStation,
+                  ),
+                  PageViewButton(
+                    icon: const Icon(
+                      Icons.arrow_forward_ios,
+                      color: kColorWhite,
                     ),
-                  ],
-                ),
+                    visible: isNextStation,
+                    onTap: model.showNextStation,
+                  ),
+                ],
+              ),
             ],
           );
         },

@@ -6,12 +6,11 @@ import 'package:provider/provider.dart';
 import '../../homepage/image_layer/image_details_view.dart';
 
 class StationItemWidget extends StatelessWidget {
-  const StationItemWidget({
-    Key? key,
-    required this.station,
-  }) : super(key: key);
+  const StationItemWidget({Key? key, required this.station, this.onNextStation})
+      : super(key: key);
 
   final Station station;
+  final void Function()? onNextStation;
 
   @override
   Widget build(BuildContext context) {
@@ -59,7 +58,7 @@ class StationItemWidget extends StatelessWidget {
                             Tooltip(
                               waitDuration: const Duration(milliseconds: 500),
                               margin: const EdgeInsets.only(left: 20),
-                              message: 'photo tooltip', //image.title ?? '',
+                              message: image.title ?? 'no name given',
                               child: Material(
                                 child: InkWell(
                                   onTap: () => context
@@ -68,7 +67,7 @@ class StationItemWidget extends StatelessWidget {
                                         imageId: image.id,
                                       )),
                                   child: SizedBox(
-                                    height: 100,
+                                    height: 150,
                                     child: NetworkImageWidget(
                                       url: image.imageURL!,
                                       loaderWidget: Center(
@@ -91,6 +90,12 @@ class StationItemWidget extends StatelessWidget {
                       styleSheet:
                           context.read<GlobalTheme>().markDownStyleSheet,
                     ),
+                    UIHelper.verticalSpaceSmall(),
+                    if (onNextStation != null)
+                      ElevatedButton(
+                        onPressed: onNextStation,
+                        child: const Text('Zur nächsten Station'),
+                      ),
                   ],
                 ),
               ),
