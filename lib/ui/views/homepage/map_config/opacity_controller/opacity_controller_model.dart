@@ -1,5 +1,5 @@
 import 'package:historical_guide/core/services/map_service.dart';
-import 'package:historical_guide/ui/base/base_model.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 
 class OpacityControllerModel extends BaseModel {
   OpacityControllerModel({required MapService mapService})

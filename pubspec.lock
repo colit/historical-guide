@@ -190,7 +190,7 @@ packages:
       path: "../historical_guides_commons"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "0.0.2"
   hive:
     dependency: "direct main"
     description:
@@ -253,7 +253,7 @@ packages:
       path: "../../flutter-mapbox-gl"
       relative: true
     source: path
-    version: "0.15.0"
+    version: "0.16.0"
   mapbox_gl_dart:
     dependency: transitive
     description:
@@ -267,14 +267,14 @@ packages:
       path: "../../flutter-mapbox-gl/mapbox_gl_platform_interface"
       relative: true
     source: path
-    version: "0.15.0"
+    version: "0.16.0"
   mapbox_gl_web:
     dependency: "direct overridden"
     description:
       path: "../../flutter-mapbox-gl/mapbox_gl_web"
       relative: true
     source: path
-    version: "0.15.0"
+    version: "0.16.0"
   markdown:
     dependency: transitive
     description:
@@ -353,12 +353,12 @@ packages:
     source: hosted
     version: "2.1.2"
   pointer_interceptor:
-    dependency: "direct main"
+    dependency: transitive
     description:
-      name: pointer_interceptor
-      url: "https://pub.dartlang.org"
-    source: hosted
-    version: "0.9.3+1"
+      path: "../../pub_dev/packages/packages/pointer_interceptor"
+      relative: true
+    source: path
+    version: "0.9.3"
   provider:
     dependency: "direct main"
     description:

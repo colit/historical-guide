@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:historical_guide/core/exeptions/general_exeption.dart';
 import 'package:historical_guide/core/services/user_service.dart';
-import 'package:historical_guide/ui/base/base_model.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 
 import '../../../core/app_state.dart';
 

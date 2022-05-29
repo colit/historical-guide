@@ -8,15 +8,18 @@ import '../../../core/services/tour_service.dart';
 class MapsModel extends BaseModel {
   static const String kPhotoSourceId = 'PHOTOS';
   static const String kTrackSourceId = 'TRACK';
-  MapsModel({
-    required MapService mapService,
-    required TourService tourService,
-  })  : _mapService = mapService,
-        _tourService = tourService {
+  MapsModel(
+      {required MapService mapService,
+      required TourService tourService,
+      void Function(int)? onPhotoSelect})
+      : _mapService = mapService,
+        _tourService = tourService,
+        _onPhotoSelect = onPhotoSelect {
     _mapService.addListener(_onMapChanged);
   }
   final MapService _mapService;
   final TourService _tourService;
+  final void Function(int)? _onPhotoSelect;
 
   late MapboxMapController _controller;
 
@@ -88,7 +91,7 @@ class MapsModel extends BaseModel {
         _selectedTour = null;
       }
     }
-    // redraw map
+    // redraw view
     notifyListeners();
   }
 
@@ -155,9 +158,8 @@ class MapsModel extends BaseModel {
         _controller
             .animateCamera(CameraUpdate.newLatLng(position))
             .then(_updateCameraPosition);
-        _selectedPoint = MapPoint(
-          id: uuid,
-        );
+        _selectedPoint = MapPoint(id: uuid);
+        _onPhotoSelect?.call(uuid);
         notifyListeners();
       }
     });

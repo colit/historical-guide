@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:historical_guide/core/services/map_service.dart';
-import 'package:historical_guide/ui/base/base_widget.dart';
-import 'package:historical_guide/ui/views/maps/map_selector_plus/map_selector_plus_model.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 import 'package:provider/provider.dart';
 
+import '../../homepage/map_selector_plus/map_selector_plus_model.dart';
 import 'widgets/map_opacity_controller_widget.dart';
 import 'widgets/map_selector_button_widget.dart';
 import 'widgets/years_selector_widget.dart';

@@ -5,15 +5,17 @@ class NavigationItem extends StatelessWidget {
   const NavigationItem({
     Key? key,
     required this.symanticLabel,
-    this.selected = false,
     this.onTap,
     required this.child,
+    required this.index,
+    this.currentSelected = 0,
   }) : super(key: key);
 
   final String symanticLabel;
-  final bool selected;
-  final Function? onTap;
+  final void Function(int)? onTap;
   final Widget child;
+  final int index;
+  final int? currentSelected;
 
   @override
   Widget build(BuildContext context) {
@@ -22,12 +24,12 @@ class NavigationItem extends StatelessWidget {
       margin: const EdgeInsets.only(left: 20),
       message: symanticLabel,
       child: Material(
-        color: selected ? kColorWhite : kColorBackgroundLight,
+        color: index == currentSelected ? kColorWhite : kColorBackgroundLight,
         child: InkWell(
           mouseCursor: SystemMouseCursors.click,
           hoverColor: Colors.white,
           onTap: () {
-            onTap?.call();
+            onTap?.call(index);
           },
           child: Padding(
             padding: const EdgeInsets.all(10),

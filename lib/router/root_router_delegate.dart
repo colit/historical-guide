@@ -1,11 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:historical_guide/core/app_state.dart';
-import 'package:historical_guide/core/services/user_service.dart';
 import 'package:historical_guide/router/app_routes.dart';
-import 'package:historical_guide/ui/views/login/login_view.dart';
-import 'package:provider/provider.dart';
-
-import '../ui/views/app_shell.dart';
 
 class RootRouterDelegate extends RouterDelegate<AppRoutePath>
     with ChangeNotifier, PopNavigatorRouterDelegateMixin<AppRoutePath> {
@@ -44,7 +39,6 @@ class RootRouterDelegate extends RouterDelegate<AppRoutePath>
   @override
   Widget build(BuildContext context) {
     print('build root router delegate');
-
     return Navigator(
       key: navigatorKey,
       pages: _appState.getRootPage(),

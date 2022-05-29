@@ -1,4 +1,4 @@
-import 'package:historical_guide/ui/base/base_model.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 
 import '../../../../core/models/map_referece.dart';
 import '../../../../core/services/map_service.dart';

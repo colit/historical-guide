@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:historical_guide/ui/views/maps/map_config/widgets/year_list_item.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 import 'package:provider/provider.dart';
 
 import '../../../../../core/services/map_service.dart';
-import '../../../../base/base_widget.dart';
+import '../widgets/year_list_item.dart';
 import 'map_selector_model.dart';
 
 class MapSelectorWidget extends StatelessWidget {

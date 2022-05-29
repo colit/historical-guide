@@ -4,7 +4,6 @@ import 'package:provider/provider.dart';
 
 import '../../../../core/app_state.dart';
 import '../../../widgets/pointer_interceptor/web.dart';
-import '../../../widgets/round_icon_button.dart';
 
 class TourPreviewWidget extends StatefulWidget {
   const TourPreviewWidget({
@@ -75,7 +74,6 @@ class _TourPreviewWidgetState extends State<TourPreviewWidget>
               ],
             ),
             width: 300,
-            // height: TourPreviewWidget.widgetHeight,
             child: Row(
               children: [
                 Expanded(
@@ -94,10 +92,10 @@ class _TourPreviewWidgetState extends State<TourPreviewWidget>
                   icon: const Icon(Icons.arrow_forward),
                   onTap: () {
                     if (widget.selectedTour != null) {
-                      context.read<AppState>().pushPage(
-                            name: 'tour_details',
-                            arguments:
-                                TourDetailArguments(widget.selectedTour!.id),
+                      context.read<AppState>().setDeepLink(
+                            1,
+                            'tour_details',
+                            detailsId: widget.selectedTour!.id,
                           );
                     }
                   },

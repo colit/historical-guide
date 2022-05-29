@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:historical_guide/ui/views/maps/map_config/map_selector/map_selector_view.dart';
-import 'package:historical_guide/ui/views/maps/map_config/photo_selector/photo_selector_view.dart';
-import 'package:historical_guide/ui/views/maps/map_config/tour_selector/tour_selector_view.dart';
 import 'package:historical_guides_commons/historical_guides_commons.dart';
 
+import '../../homepage/map_config/map_selector/map_selector_view.dart';
+import '../../homepage/map_config/photo_selector/photo_selector_view.dart';
+import '../../homepage/map_config/tour_selector/tour_selector_view.dart';
 import 'widgets/config_content_widget.dart';
 import 'widgets/config_menu_button.dart';
 

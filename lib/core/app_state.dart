@@ -7,15 +7,15 @@ import 'package:historical_guide/ui/views/tour_detail/tour_detail_view.dart';
 
 import '../router/fade_animation_page.dart';
 import '../ui/views/about/about_view.dart';
-import '../ui/views/maps/maps_view.dart';
+import '../ui/views/homepage/maps_view.dart';
 import '../ui/views/tours/tours_view.dart';
 
-enum pageType {
-  maps,
-  tours,
-  tourDetail,
-  about,
-}
+// enum pageType {
+//   maps,
+//   tours,
+//   tourDetail,
+//   about,
+// }
 
 class AppState extends ChangeNotifier {
   static const mapPath = '/';
@@ -134,6 +134,11 @@ class AppState extends ChangeNotifier {
   void setHomePage(int idx) {
     selectedPageId = null;
     selectedIndex = idx;
+  }
+
+  void setDeepLink(int rootPageIndex, String pageName, {String? detailsId}) {
+    selectedPageId = detailsId;
+    selectedIndex = rootPageIndex;
   }
 
   void pushPage({required String name, Object? arguments}) {

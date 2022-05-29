@@ -20,6 +20,7 @@ List<SingleChildWidget> independentServices = [
   Provider(create: (_) => GlobalTheme()),
   Provider(create: (_) => ParseServerRepository()),
   Provider(create: (_) => ParseUsersRepository()),
+  Provider(create: (_) => ModalViewService()),
 ];
 
 List<SingleChildWidget> dependentServices = [

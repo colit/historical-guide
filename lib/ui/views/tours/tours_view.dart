@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:historical_guide/core/app_state.dart';
 import 'package:historical_guide/core/services/tour_service.dart';
-import 'package:historical_guide/ui/base/base_model.dart';
-import 'package:historical_guide/ui/base/base_widget.dart';
+import 'package:historical_guides_commons/historical_guides_commons.dart';
 import 'package:provider/provider.dart';
 
 import 'widgets/tour_thumbnail.dart';

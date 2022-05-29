@@ -8,7 +8,7 @@ import 'package:mapbox_gl/mapbox_gl.dart';
 import 'package:provider/provider.dart';
 
 import '../../../core/services/tour_service.dart';
-import 'image_layer/image_layer_view.dart';
+import 'image_layer/image_details_view.dart';
 import 'map_config/config_view.dart';
 import 'maps_model.dart';
 import 'widgets/tour_preview_widget.dart';
@@ -23,16 +23,22 @@ class MapsView extends StatefulWidget {
 class _MapsViewState extends State<MapsView> {
   @override
   Widget build(BuildContext context) {
-    print('build MapsView');
     return LayoutBuilder(builder: (context, constrains) {
       final width = constrains.maxWidth;
       return BaseWidget<MapsModel>(
         model: MapsModel(
           mapService: context.read<MapService>(),
           tourService: context.read<TourService>(),
+          onPhotoSelect: (id) {
+            context
+                .read<ModalViewService>()
+                .show(ImageDetailsView(imageId: id))
+                .then((_) {
+              print('------------- image view closed');
+            });
+          },
         ),
         builder: (context, model, child) {
-          print('build map view');
           return Stack(
             alignment: AlignmentDirectional.center,
             children: [
@@ -71,12 +77,12 @@ class _MapsViewState extends State<MapsView> {
                       model.isSetupVisible = true;
                     },
                   )),
-              Positioned.fill(
-                child: ImageLayerView(
-                  image: model.selectedPoint,
-                  onDismiss: model.removeSelectedImage,
-                ),
-              ),
+              // Positioned.fill(
+              //   child: ImageLayerView(
+              //     image: model.selectedPoint,
+              //     onDismiss: model.removeSelectedImage,
+              //   ),
+              // ),
             ],
           );
         },
